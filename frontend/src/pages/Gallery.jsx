@@ -295,11 +295,11 @@ const Gallery = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap justify-center gap-3 mb-12"
+              className="flex flex-wrap justify-center gap-3 mb-8 sm:mb-12"
             >
               <button
                 onClick={() => setActiveTab('all')}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                   activeTab === 'all'
                     ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
                     : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft'
@@ -309,36 +309,67 @@ const Gallery = () => {
               </button>
               <button
                 onClick={() => setActiveTab('photos')}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                   activeTab === 'photos'
                     ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
                     : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft'
                 }`}
               >
-                <FiImage size={20} />
+                <FiImage size={18} className="sm:w-5 sm:h-5" />
                 <span>Photos</span>
               </button>
               <button
                 onClick={() => setActiveTab('videos')}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                   activeTab === 'videos'
                     ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
                     : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft'
                 }`}
               >
-                <FiVideo size={20} />
+                <FiVideo size={18} className="sm:w-5 sm:h-5" />
                 <span>Videos</span>
               </button>
             </motion.div>
 
+            {/* Category Filter for Videos */}
+            {activeTab === 'videos' && allVideos.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="mb-8"
+              >
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                  {['All Videos', 'Annual Day', 'Republic Day', 'Birthday Celebrations', 'Dance Videos'].map((category) => (
+                    <button
+                      key={category}
+                      className={`flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                        category === 'All Videos'
+                          ? 'bg-primary-500 text-white shadow-md'
+                          : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 border border-gray-200 hover:border-primary-300'
+                      }`}
+                    >
+                      {category === 'Annual Day' && <FiCalendar size={14} />}
+                      {category === 'Republic Day' && <FiFlag size={14} />}
+                      {category === 'Birthday Celebrations' && <FiGift size={14} />}
+                      {category === 'Dance Videos' && <FiMusic size={14} />}
+                      {category === 'All Videos' && <FiVideo size={14} />}
+                      <span>{category}</span>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {/* Gallery Grid */}
             {loading ? (
-              <div className="text-center py-12">
+              <div className="text-center py-16">
                 <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
                 <p className="mt-4 text-secondary-600">Loading gallery...</p>
               </div>
             ) : filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {filteredItems.map((item, index) => (
                   <motion.div
                     key={item._id || item.id}
@@ -446,10 +477,40 @@ const Gallery = () => {
                 ))}
               </div>
             ) : (
-              <div className="card text-center py-12">
-                <FiImage className="mx-auto text-secondary-400 mb-4" size={48} />
-                <p className="text-secondary-600 text-lg">No content available at the moment.</p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="card text-center py-16 px-6"
+              >
+                <div className="max-w-md mx-auto">
+                  {activeTab === 'videos' ? (
+                    <>
+                      <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <FiVideo className="text-primary-600" size={40} />
+                      </div>
+                      <h3 className="text-xl font-bold text-secondary-900 mb-2">No Videos Available</h3>
+                      <p className="text-secondary-600 mb-6">Check back soon for exciting video content from our school events and celebrations.</p>
+                    </>
+                  ) : activeTab === 'photos' ? (
+                    <>
+                      <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <FiImage className="text-primary-600" size={40} />
+                      </div>
+                      <h3 className="text-xl font-bold text-secondary-900 mb-2">No Photos Available</h3>
+                      <p className="text-secondary-600 mb-6">Check back soon for photos from our school events and activities.</p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <FiImage className="text-primary-600" size={40} />
+                      </div>
+                      <h3 className="text-xl font-bold text-secondary-900 mb-2">No Content Available</h3>
+                      <p className="text-secondary-600">Check back soon for exciting content from our school.</p>
+                    </>
+                  )}
+                </div>
+              </motion.div>
             )}
           </div>
         </div>

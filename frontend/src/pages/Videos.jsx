@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiPlay, FiX, FiCalendar, FiFlag, FiGift, FiMusic } from 'react-icons/fi';
+import { FiPlay, FiX, FiCalendar, FiFlag, FiGift, FiMusic, FiVideo } from 'react-icons/fi';
+import api from '../utils/api';
 
 const Videos = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [apiVideos, setApiVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Video categories with icons
   const categories = [
@@ -16,9 +19,26 @@ const Videos = () => {
     { id: 'dance', label: 'Dance Videos', icon: FiMusic },
   ];
 
+  useEffect(() => {
+    fetchVideos();
+  }, []);
+
+  const fetchVideos = async () => {
+    try {
+      const response = await api.get('/gallery?isActive=true');
+      const allGalleries = response.data.galleries || [];
+      const videos = allGalleries.filter(g => g.type === 'video' && g.videoUrl && g.videoUrl.trim() !== '');
+      setApiVideos(videos);
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Sample videos - Replace these with your actual video URLs
   // You can use YouTube embed URLs, Vimeo URLs, or direct video file URLs
-  const videos = [
+  const sampleVideos = [
     {
       id: 1,
       title: 'Annual Day Celebration 2024',
@@ -93,10 +113,25 @@ const Videos = () => {
     },
   ];
 
+  // Map API videos to match the format
+  const mappedApiVideos = apiVideos.map(video => ({
+    id: video._id,
+    title: video.title,
+    category: video.category?.toLowerCase().replace(/\s+/g, '-') || 'all',
+    thumbnail: video.thumbnail || '',
+    videoUrl: video.videoUrl,
+    description: video.description || '',
+    date: video.date ? new Date(video.date).toLocaleDateString() : '',
+  }));
+
+  // Combine API videos with sample videos (only those with valid URLs)
+  const validSampleVideos = sampleVideos.filter(v => v.videoUrl && v.videoUrl.trim() !== '');
+  const allVideos = [...mappedApiVideos, ...validSampleVideos];
+
   // Filter videos by category
   const filteredVideos = selectedCategory === 'all' 
-    ? videos 
-    : videos.filter(video => video.category === selectedCategory);
+    ? allVideos 
+    : allVideos.filter(video => video.category === selectedCategory);
 
   // Function to get YouTube embed URL from regular YouTube URL
   const getYouTubeEmbedUrl = (url) => {
@@ -179,7 +214,7 @@ const Videos = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap justify-center gap-3 mb-12"
+              className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-hide"
             >
               {categories.map((category) => {
                 const Icon = category.icon;
@@ -188,13 +223,13 @@ const Videos = () => {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap ${
                       isActive
                         ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
-                        : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft'
+                        : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft border border-gray-200 hover:border-primary-300'
                     }`}
                   >
-                    <Icon size={20} />
+                    <Icon size={18} className="sm:w-5 sm:h-5" />
                     <span>{category.label}</span>
                   </button>
                 );
@@ -202,8 +237,13 @@ const Videos = () => {
             </motion.div>
 
             {/* Videos Grid */}
-            {filteredVideos.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {loading ? (
+              <div className="text-center py-16">
+                <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <p className="mt-4 text-secondary-600">Loading videos...</p>
+              </div>
+            ) : filteredVideos.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {filteredVideos.map((video, index) => (
                   <motion.div
                     key={video.id}
@@ -262,10 +302,24 @@ const Videos = () => {
                 ))}
               </div>
             ) : (
-              <div className="card text-center py-12">
-                <FiPlay className="mx-auto text-secondary-400 mb-4" size={48} />
-                <p className="text-secondary-600 text-lg">No videos available in this category.</p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="card text-center py-16 px-6"
+              >
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <FiVideo className="text-primary-600" size={40} />
+                  </div>
+                  <h3 className="text-xl font-bold text-secondary-900 mb-2">No Videos Available</h3>
+                  <p className="text-secondary-600 mb-6">
+                    {selectedCategory === 'all' 
+                      ? 'Check back soon for exciting video content from our school events and celebrations.'
+                      : `No videos available in the "${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}" category.`}
+                  </p>
+                </div>
+              </motion.div>
             )}
           </div>
         </div>

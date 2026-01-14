@@ -23,7 +23,6 @@ import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import useAuthStore from '../../store/authStore';
 import Notifications from '../Notifications';
-import Footer from '../Footer';
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -356,7 +355,21 @@ const AdminLayout = () => {
           <main className="p-4 lg:p-8 flex-1">
             <Outlet />
           </main>
-          <Footer />
+          {/* Minimal Admin Footer */}
+          <footer className="border-t border-gray-200 bg-white px-4 lg:px-8 py-4 mt-auto">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-gray-600">
+              <p>© {new Date().getFullYear()} D.M. Public School. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <a href="mailto:aartikumari05032002@gmail.com" className="hover:text-primary-600 transition-colors">
+                  aartikumari05032002@gmail.com
+                </a>
+                <span className="text-gray-300">|</span>
+                <a href="tel:7352737650" className="hover:text-primary-600 transition-colors">
+                  7352737650
+                </a>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
 
