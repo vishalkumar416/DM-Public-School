@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   FiMapPin,
@@ -12,19 +12,13 @@ import {
 } from 'react-icons/fi';
 
 const Footer = () => {
-  const navigate = useNavigate();
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = () => {
     // Scroll to top immediately when footer link is clicked
     window.scrollTo({ top: 0, behavior: 'instant' });
-    // Small delay to ensure scroll happens before navigation
-    setTimeout(() => {
-      navigate(path);
-    }, 0);
   };
 
   const footerLinks = {
@@ -124,7 +118,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    onClick={() => handleLinkClick(link.path)}
+                    onClick={handleLinkClick}
                     className="text-secondary-700 hover:text-primary-600 transition-colors text-sm flex items-center group"
                   >
                     <span className="w-0 group-hover:w-2 h-0.5 bg-primary-500 mr-0 group-hover:mr-2 transition-all duration-200"></span>
@@ -148,7 +142,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    onClick={() => handleLinkClick(link.path)}
+                    onClick={handleLinkClick}
                     className="text-secondary-700 hover:text-primary-600 transition-colors text-sm flex items-center group"
                   >
                     <span className="w-0 group-hover:w-2 h-0.5 bg-primary-500 mr-0 group-hover:mr-2 transition-all duration-200"></span>
@@ -207,14 +201,14 @@ const Footer = () => {
           <div className="flex items-center space-x-6 text-sm text-secondary-600">
             <Link 
               to="/privacy" 
-              onClick={() => handleLinkClick('/privacy')}
+              onClick={handleLinkClick}
               className="hover:text-primary-600 transition-colors"
             >
               Privacy Policy
             </Link>
             <Link 
               to="/terms" 
-              onClick={() => handleLinkClick('/terms')}
+              onClick={handleLinkClick}
               className="hover:text-primary-600 transition-colors"
             >
               Terms of Service
