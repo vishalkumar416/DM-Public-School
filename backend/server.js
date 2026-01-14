@@ -38,6 +38,13 @@ if (missingVars.length) {
 const app = express();
 
 /* ==============================
+   TRUST PROXY (Required for Render/Vercel)
+================================ */
+
+// Trust proxy - required when behind a reverse proxy (Render, Vercel, etc.)
+app.set('trust proxy', 1);
+
+/* ==============================
    SECURITY MIDDLEWARE
 ================================ */
 
