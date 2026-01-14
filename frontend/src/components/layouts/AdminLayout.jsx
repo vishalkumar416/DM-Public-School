@@ -300,13 +300,13 @@ const AdminLayout = () => {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
         {/* Sidebar */}
         <aside
-          className={`fixed lg:relative top-0 left-0 z-30 w-64 bg-white shadow-large lg:shadow-soft transform transition-transform duration-300 ease-in-out border-r border-secondary-200 flex-shrink-0 h-full ${
+          className={`fixed lg:relative top-16 lg:top-0 left-0 z-30 w-64 bg-white shadow-large lg:shadow-soft transform transition-transform duration-300 ease-in-out border-r border-secondary-200 flex-shrink-0 h-[calc(100vh-4rem)] lg:h-full ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
           }`}
         >
           <div className="h-full flex flex-col">
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto overflow-x-hidden min-h-0">
+          <nav className="flex-1 p-3 sm:p-4 space-y-1.5 sm:space-y-2 overflow-y-auto overflow-x-hidden min-h-0">
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -316,13 +316,13 @@ const AdminLayout = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                  className={`flex items-center space-x-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg transition-all duration-200 text-sm sm:text-base ${
                     isActive
                       ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-soft'
                       : 'text-secondary-700 hover:bg-primary-50 hover:text-primary-500'
                   }`}
                 >
-                  <Icon size={20} />
+                  <Icon size={18} className="sm:w-5 sm:h-5 flex-shrink-0" />
                   <span className="font-medium">{item.label}</span>
                 </Link>
               );
@@ -330,12 +330,12 @@ const AdminLayout = () => {
           </nav>
 
           {/* Logout */}
-          <div className="p-4 border-t border-secondary-200">
+          <div className="p-3 sm:p-4 border-t border-secondary-200">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 transition-colors font-medium"
+              className="w-full flex items-center space-x-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-red-500 hover:bg-red-50 transition-colors font-medium text-sm sm:text-base"
             >
-              <FiLogOut size={20} />
+              <FiLogOut size={18} className="sm:w-5 sm:h-5 flex-shrink-0" />
               <span>Logout</span>
             </button>
           </div>
@@ -345,31 +345,16 @@ const AdminLayout = () => {
         {/* Overlay for mobile */}
         {sidebarOpen && (
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-20 backdrop-blur-sm"
+            className="lg:hidden fixed inset-0 bg-black/50 z-20 backdrop-blur-sm top-16"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Main Content */}
-        <div className="flex-1 h-full w-full lg:w-auto overflow-y-auto overflow-x-hidden flex flex-col">
-          <main className="p-4 lg:p-8 flex-1">
+        <div className="flex-1 h-full w-full lg:w-auto overflow-y-auto overflow-x-hidden">
+          <main className="p-4 lg:p-8 min-h-full">
             <Outlet />
           </main>
-          {/* Minimal Admin Footer */}
-          <footer className="border-t border-gray-200 bg-white px-4 lg:px-8 py-4 mt-auto">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-gray-600">
-              <p>© {new Date().getFullYear()} D.M. Public School. All rights reserved.</p>
-              <div className="flex items-center gap-4">
-                <a href="mailto:aartikumari05032002@gmail.com" className="hover:text-primary-600 transition-colors">
-                  aartikumari05032002@gmail.com
-                </a>
-                <span className="text-gray-300">|</span>
-                <a href="tel:7352737650" className="hover:text-primary-600 transition-colors">
-                  7352737650
-                </a>
-              </div>
-            </div>
-          </footer>
         </div>
       </div>
 
