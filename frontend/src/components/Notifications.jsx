@@ -143,28 +143,29 @@ const Notifications = () => {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-96 bg-white rounded-2xl shadow-2xl border border-secondary-200 z-50 max-h-[600px] flex flex-col">
-            <div className="sticky top-0 bg-white border-b border-secondary-200 px-4 py-3 flex justify-between items-center rounded-t-2xl">
-              <div className="flex items-center gap-2">
-                <h3 className="text-lg font-bold text-secondary-900">Notifications</h3>
+          <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-white rounded-2xl shadow-2xl border border-secondary-200 z-50 max-h-[calc(100vh-8rem)] sm:max-h-[600px] flex flex-col">
+            <div className="sticky top-0 bg-white border-b border-secondary-200 px-4 py-3 flex justify-between items-center rounded-t-2xl z-10">
+              <div className="flex items-center gap-2 min-w-0">
+                <h3 className="text-base sm:text-lg font-bold text-secondary-900 truncate">Notifications</h3>
                 {unreadCount > 0 && (
-                  <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
-                    {unreadCount}
+                  <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full flex-shrink-0">
+                    {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-shrink-0">
                 {unreadCount > 0 && (
                   <button
                     onClick={handleMarkAllAsRead}
-                    className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-xs text-primary-600 hover:text-primary-700 font-medium whitespace-nowrap"
                   >
                     Mark all read
                   </button>
                 )}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-secondary-500 hover:text-secondary-700"
+                  className="text-secondary-500 hover:text-secondary-700 p-1"
+                  aria-label="Close notifications"
                 >
                   <FiX size={18} />
                 </button>
@@ -181,50 +182,58 @@ const Notifications = () => {
                   {notifications.map((notification) => (
                     <div
                       key={notification._id}
-                      className={`p-4 hover:bg-secondary-50 transition-colors cursor-pointer ${
+                      className={`p-3 sm:p-4 hover:bg-secondary-50 transition-colors cursor-pointer ${
                         !notification.isRead ? 'bg-primary-50/30' : ''
                       }`}
                       onClick={() => handleNotificationClick(notification)}
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-xl ${getNotificationColor(notification.type)}`}>
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center text-lg sm:text-xl flex-shrink-0 ${getNotificationColor(notification.type)}`}>
                           {getNotificationIcon(notification.type)}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-secondary-900 text-sm">
+                          <div className="flex items-start justify-between gap-2 mb-1">
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-secondary-900 text-sm sm:text-base leading-tight break-words">
                                 {notification.title}
                               </h4>
-                              <p className="text-xs text-secondary-600 mt-1 line-clamp-2">
-                                {notification.message}
-                              </p>
-                              <p className="text-xs text-secondary-400 mt-2">
-                                {new Date(notification.createdAt).toLocaleString()}
-                              </p>
                             </div>
                             {!notification.isRead && (
-                              <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0 mt-1"></div>
+                              <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0 mt-1.5"></div>
                             )}
                           </div>
-                          <div className="flex items-center gap-2 mt-2">
+                          <p className="text-xs sm:text-sm text-secondary-600 mt-1.5 line-clamp-2 break-words leading-relaxed">
+                            {notification.message}
+                          </p>
+                          <p className="text-xs text-secondary-400 mt-2">
+                            {new Date(notification.createdAt).toLocaleString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              hour: 'numeric',
+                              minute: '2-digit',
+                              hour12: true
+                            })}
+                          </p>
+                          <div className="flex items-center gap-3 sm:gap-4 mt-3 pt-2 border-t border-gray-100">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleMarkAsRead(notification._id);
                               }}
-                              className="text-xs text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                              className="text-xs text-primary-600 hover:text-primary-700 flex items-center gap-1.5 font-medium"
                             >
-                              <FiCheck size={14} /> Mark read
+                              <FiCheck size={14} className="flex-shrink-0" />
+                              <span>Read</span>
                             </button>
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleDelete(notification._id);
                               }}
-                              className="text-xs text-red-600 hover:text-red-700 flex items-center gap-1"
+                              className="text-xs text-red-600 hover:text-red-700 flex items-center gap-1.5 font-medium"
                             >
-                              <FiTrash2 size={14} /> Delete
+                              <FiTrash2 size={14} className="flex-shrink-0" />
+                              <span>Delete</span>
                             </button>
                           </div>
                         </div>

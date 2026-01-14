@@ -105,65 +105,81 @@ const AdminAdmissions = () => {
             </div>
           ) : admissions.length > 0 ? (
             admissions.map((admission) => (
-              <div key={admission._id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex flex-col sm:flex-row items-start gap-4 flex-1">
-                    {admission.photo && (
+              <div key={admission._id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-4 sm:p-6 border border-gray-100">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {/* Left Section - Photo and Basic Info */}
+                  <div className="flex items-start gap-3 sm:gap-4 flex-shrink-0">
+                    {admission.photo ? (
                       <img
                         src={admission.photo}
                         alt={admission.firstName}
-                        className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover flex-shrink-0 border-2 border-gray-100"
                       />
+                    ) : (
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center flex-shrink-0 border-2 border-gray-100">
+                        <span className="text-primary-600 font-bold text-xl">
+                          {admission.firstName?.[0]}{admission.lastName?.[0]}
+                        </span>
+                      </div>
                     )}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 break-words">
+                    <div className="flex-1 min-w-0 sm:min-w-[200px]">
+                      <div className="mb-2">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1.5 leading-tight">
                           {admission.firstName} {admission.lastName}
                         </h3>
-                        <span className={`px-2 sm:px-3 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(admission.status)} whitespace-nowrap`}>
+                        <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(admission.status)}`}>
                           {admission.status?.toUpperCase()}
                         </span>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                        <div className="flex items-center gap-2">
-                          <FiFileText className="text-primary-500 flex-shrink-0" size={16} />
-                          <span className="truncate">#{admission.applicationNumber}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <FiUser className="text-primary-500 flex-shrink-0" size={16} />
-                          <span>Class {admission.classApplied}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <FiPhone className="text-primary-500 flex-shrink-0" size={16} />
-                          <span className="truncate">{admission.fatherPhone}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <FiCalendar className="text-primary-500 flex-shrink-0" size={16} />
-                          <span>{new Date(admission.createdAt).toLocaleDateString()}</span>
-                        </div>
+                    </div>
+                  </div>
+
+                  {/* Middle Section - Details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <FiFileText className="text-primary-500 flex-shrink-0" size={16} />
+                        <span className="truncate font-medium">#{admission.applicationNumber}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <FiUser className="text-primary-500 flex-shrink-0" size={16} />
+                        <span>Class {admission.classApplied}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <FiPhone className="text-primary-500 flex-shrink-0" size={16} />
+                        <span className="truncate">{admission.fatherPhone}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <FiCalendar className="text-primary-500 flex-shrink-0" size={16} />
+                        <span>{new Date(admission.createdAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-2 sm:ml-4 w-full sm:w-auto">
+
+                  {/* Right Section - Action Buttons */}
+                  <div className="flex flex-row sm:flex-col gap-2 sm:gap-2 sm:w-auto w-full sm:flex-shrink-0">
                     <button
                       onClick={() => handleView(admission)}
-                      className="px-3 sm:px-4 py-2 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors flex items-center justify-center gap-2 text-sm"
+                      className="flex-1 sm:flex-none px-4 py-2.5 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors flex items-center justify-center gap-2 text-sm font-medium"
                     >
-                      <FiEye size={18} /> <span className="hidden sm:inline">View</span>
+                      <FiEye size={18} />
+                      <span className="hidden sm:inline">View</span>
                     </button>
                     {admission.status === 'pending' && (
                       <>
                         <button
                           onClick={() => handleApproveClick(admission._id)}
-                          className="px-3 sm:px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 text-sm"
+                          className="flex-1 sm:flex-none px-4 py-2.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 text-sm font-medium"
                         >
-                          <FiCheck size={18} /> <span className="hidden sm:inline">Approve</span>
+                          <FiCheck size={18} />
+                          <span className="hidden sm:inline">Approve</span>
                         </button>
                         <button
                           onClick={() => handleReject(admission._id)}
-                          className="px-3 sm:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-sm"
+                          className="flex-1 sm:flex-none px-4 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-sm font-medium"
                         >
-                          <FiX size={18} /> <span className="hidden sm:inline">Reject</span>
+                          <FiX size={18} />
+                          <span className="hidden sm:inline">Reject</span>
                         </button>
                       </>
                     )}
