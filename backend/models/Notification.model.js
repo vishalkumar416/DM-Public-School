@@ -48,3 +48,4 @@ notificationSchema.index({ type: 1 });
 const Notification = mongoose.model('Notification', notificationSchema);
 export default Notification;
 
+

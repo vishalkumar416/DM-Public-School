@@ -18,7 +18,12 @@ const AdminContacts = () => {
       const response = await api.get('/contact');
       setContacts(response.data.contacts || []);
     } catch (error) {
-      toast.error('Error fetching contacts');
+      console.error('Error fetching contacts:', error);
+      if (error.response?.status === 404) {
+        toast.error('Contact endpoint not found. Please check API configuration.');
+      } else {
+        toast.error('Error fetching contacts');
+      }
     } finally {
       setLoading(false);
     }

@@ -30,7 +30,17 @@ const Contact = () => {
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error sending message');
+      console.error('Contact form error:', error);
+      if (error.response) {
+        // Server responded with error
+        toast.error(error.response.data?.message || 'Error sending message');
+      } else if (error.request) {
+        // Request made but no response
+        toast.error('Unable to connect to server. Please check your internet connection.');
+      } else {
+        // Something else happened
+        toast.error('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
