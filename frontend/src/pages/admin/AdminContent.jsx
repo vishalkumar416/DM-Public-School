@@ -94,8 +94,8 @@ const AdminContent = () => {
       </Helmet>
       <div>
         <div className="mb-6">
-          <h1 className="text-3xl font-bold">Content Management</h1>
-          <p className="text-gray-600 mt-1">Manage website content and information</p>
+          <h1 className="text-2xl sm:text-3xl font-bold">Content Management</h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage website content and information</p>
         </div>
 
         <div className="grid grid-cols-1 gap-4">

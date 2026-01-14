@@ -81,15 +81,15 @@ const AdminAdmissions = () => {
         <title>Admissions - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold">Admissions</h1>
-            <p className="text-gray-600 mt-1">Manage student admission applications</p>
+            <h1 className="text-2xl sm:text-3xl font-bold">Admissions</h1>
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage student admission applications</p>
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="input-field rounded-lg w-48"
+            className="input-field rounded-lg w-full sm:w-48 text-sm sm:text-base"
           >
             <option value="">All Status</option>
             <option value="pending">Pending</option>
@@ -107,63 +107,63 @@ const AdminAdmissions = () => {
             admissions.map((admission) => (
               <div key={admission._id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-start gap-4 flex-1">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 flex-1">
                     {admission.photo && (
                       <img
                         src={admission.photo}
                         alt={admission.firstName}
-                        className="w-16 h-16 rounded-lg object-cover"
+                        className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                       />
                     )}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-gray-900">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 break-words">
                           {admission.firstName} {admission.lastName}
                         </h3>
-                        <span className={`px-3 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(admission.status)}`}>
+                        <span className={`px-2 sm:px-3 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(admission.status)} whitespace-nowrap`}>
                           {admission.status?.toUpperCase()}
                         </span>
                       </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-gray-600">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600">
                         <div className="flex items-center gap-2">
-                          <FiFileText className="text-primary-500" size={16} />
-                          <span>#{admission.applicationNumber}</span>
+                          <FiFileText className="text-primary-500 flex-shrink-0" size={16} />
+                          <span className="truncate">#{admission.applicationNumber}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <FiUser className="text-primary-500" size={16} />
+                          <FiUser className="text-primary-500 flex-shrink-0" size={16} />
                           <span>Class {admission.classApplied}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <FiPhone className="text-primary-500" size={16} />
-                          <span>{admission.fatherPhone}</span>
+                          <FiPhone className="text-primary-500 flex-shrink-0" size={16} />
+                          <span className="truncate">{admission.fatherPhone}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <FiCalendar className="text-primary-500" size={16} />
+                          <FiCalendar className="text-primary-500 flex-shrink-0" size={16} />
                           <span>{new Date(admission.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-2 ml-4">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:ml-4 w-full sm:w-auto">
                     <button
                       onClick={() => handleView(admission)}
-                      className="px-4 py-2 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors flex items-center gap-2"
+                      className="px-3 sm:px-4 py-2 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors flex items-center justify-center gap-2 text-sm"
                     >
-                      <FiEye size={18} /> View
+                      <FiEye size={18} /> <span className="hidden sm:inline">View</span>
                     </button>
                     {admission.status === 'pending' && (
                       <>
                         <button
                           onClick={() => handleApproveClick(admission._id)}
-                          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
+                          className="px-3 sm:px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 text-sm"
                         >
-                          <FiCheck size={18} /> Approve
+                          <FiCheck size={18} /> <span className="hidden sm:inline">Approve</span>
                         </button>
                         <button
                           onClick={() => handleReject(admission._id)}
-                          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+                          className="px-3 sm:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-sm"
                         >
-                          <FiX size={18} /> Reject
+                          <FiX size={18} /> <span className="hidden sm:inline">Reject</span>
                         </button>
                       </>
                     )}
@@ -182,10 +182,10 @@ const AdminAdmissions = () => {
 
       {/* View Details Modal */}
       {showModal && selectedAdmission && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Admission Details</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">Admission Details</h2>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -193,8 +193,8 @@ const AdminAdmissions = () => {
                 <FiClose size={24} />
               </button>
             </div>
-            <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Application Number</label>
                   <p className="text-gray-900 font-semibold">#{selectedAdmission.applicationNumber}</p>
@@ -273,10 +273,10 @@ const AdminAdmissions = () => {
                 )}
               </div>
             </div>
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 px-6 pb-6">
+            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 px-4 sm:px-6 pb-4 sm:pb-6 sticky bottom-0 bg-white">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
               >
                 Close
               </button>
@@ -287,10 +287,10 @@ const AdminAdmissions = () => {
 
       {/* Approve Modal */}
       {approveModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Approve Admission</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">Approve Admission</h2>
               <button
                 onClick={() => setApproveModal(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -298,7 +298,7 @@ const AdminAdmissions = () => {
                 <FiClose size={24} />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Section *</label>
                 <select
@@ -322,16 +322,16 @@ const AdminAdmissions = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 px-6 pb-6">
+            <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200 px-4 sm:px-6 pb-4 sm:pb-6 sticky bottom-0 bg-white">
               <button
                 onClick={() => setApproveModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
               >
                 Cancel
               </button>
               <button
                 onClick={handleApprove}
-                className="btn-primary"
+                className="btn-primary px-4 py-2.5 w-full sm:w-auto"
               >
                 Approve
               </button>

@@ -125,9 +125,9 @@ const AdminNotices = () => {
         <title>Notices - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Notices</h1>
-          <button onClick={handleAdd} className="btn-primary flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold">Notices</h1>
+          <button onClick={handleAdd} className="btn-primary flex items-center text-sm sm:text-base px-4 py-2">
             <FiPlus className="mr-2" /> Add Notice
           </button>
         </div>
@@ -140,18 +140,18 @@ const AdminNotices = () => {
           ) : notices.length > 0 ? (
             notices.map((notice) => (
               <div key={notice._id} className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-xl font-bold">{notice.title}</h3>
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <h3 className="text-lg sm:text-xl font-bold break-words">{notice.title}</h3>
                       {notice.isPinned && (
-                        <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">
+                        <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs whitespace-nowrap">
                           Pinned
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-700 mb-2">{notice.description}</p>
-                    <div className="flex gap-2">
+                    <p className="text-sm sm:text-base text-gray-700 mb-2 break-words">{notice.description}</p>
+                    <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-lg text-xs font-medium">
                         {notice.category}
                       </span>
@@ -163,16 +163,18 @@ const AdminNotices = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex gap-2 ml-4">
+                  <div className="flex gap-2 sm:ml-4 flex-shrink-0">
                     <button
                       onClick={() => handleEdit(notice)}
-                      className="text-primary-500 hover:text-primary-600 transition-colors"
+                      className="text-primary-500 hover:text-primary-600 transition-colors p-2"
+                      aria-label="Edit notice"
                     >
                       <FiEdit size={18} />
                     </button>
                     <button
                       onClick={() => handleDelete(notice._id)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 hover:text-red-700 p-2"
+                      aria-label="Delete notice"
                     >
                       <FiTrash2 size={18} />
                     </button>
@@ -190,10 +192,10 @@ const AdminNotices = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">
                 {editingNotice ? 'Edit Notice' : 'Add Notice'}
               </h2>
               <button
@@ -203,7 +205,7 @@ const AdminNotices = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-3">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
                 <input
@@ -224,23 +226,23 @@ const AdminNotices = () => {
                   rows="4"
                 />
               </div>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
                   <select
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   >
                     <option value="">Select Category</option>
                     <option value="General">General</option>
-                    <option value="Academic">Academic</option>
-                    <option value="Event">Event</option>
+                    <option value="Exam">Exam</option>
                     <option value="Holiday">Holiday</option>
-                    <option value="Examination">Examination</option>
+                    <option value="Event">Event</option>
+                    <option value="Admission">Admission</option>
                     <option value="Fee">Fee</option>
-                    <option value="Other">Other</option>
+                    <option value="Urgent">Urgent</option>
                   </select>
                 </div>
                 <div>
@@ -248,7 +250,7 @@ const AdminNotices = () => {
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -262,7 +264,7 @@ const AdminNotices = () => {
                     type="date"
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   />
                 </div>
                 <div>
@@ -271,7 +273,7 @@ const AdminNotices = () => {
                     type="date"
                     value={formData.endDate}
                     onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   />
                 </div>
               </div>
@@ -296,15 +298,15 @@ const AdminNotices = () => {
                   className="input-field rounded-lg"
                 />
               </div>
-              <div className="flex justify-end gap-3 pt-3 border-t border-gray-200 col-span-4">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-gray-200 col-span-1 sm:col-span-2 lg:col-span-4 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary px-4 py-2.5 w-full sm:w-auto">
                   {editingNotice ? 'Update' : 'Create'} Notice
                 </button>
               </div>

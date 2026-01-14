@@ -212,18 +212,19 @@ const AdminLayout = () => {
   return (
     <div className="h-screen bg-gray-100 flex flex-col overflow-hidden">
       {/* Top Header - Full Width */}
-      <header className="w-full bg-white border-b border-secondary-200 px-4 lg:px-8 py-4 flex items-center justify-between shadow-sm z-40 flex-shrink-0">
+      <header className="w-full bg-white border-b border-secondary-200 px-3 sm:px-4 lg:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm z-40 flex-shrink-0">
         {/* Logo and School Name */}
-        <div className="flex items-center space-x-3 flex-1 min-w-0">
+        <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden text-secondary-700 hover:text-primary-500 transition-colors mr-3"
+            className="lg:hidden text-secondary-700 hover:text-primary-500 transition-colors mr-2 sm:mr-3 p-1"
+            aria-label="Toggle menu"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
           
-          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white flex items-center justify-center p-1.5 shadow-soft flex-shrink-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden bg-white flex items-center justify-center p-1.5 shadow-soft flex-shrink-0">
             <img 
               src="/logo.jpeg" 
               alt="D.M. Public School Logo" 
@@ -231,13 +232,13 @@ const AdminLayout = () => {
             />
           </div>
           <div className="min-w-0 hidden sm:block">
-            <h1 className="text-lg font-bold text-primary-500 leading-tight">D.M. Public School</h1>
+            <h1 className="text-base sm:text-lg font-bold text-primary-500 leading-tight">D.M. Public School</h1>
             <p className="text-xs text-secondary-500 mt-0.5">Admin Panel</p>
           </div>
         </div>
         
         {/* Notifications */}
-        <div className="mr-4">
+        <div className="mr-2 sm:mr-4">
           <Notifications />
         </div>
         
@@ -245,9 +246,10 @@ const AdminLayout = () => {
         <div className="relative profile-dropdown-container">
           <button
             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-            className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-secondary-50 transition-colors"
+            className="flex items-center space-x-2 sm:space-x-3 px-2 sm:px-4 py-2 rounded-lg hover:bg-secondary-50 transition-colors"
+            aria-label="Profile menu"
           >
-            <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold text-sm sm:text-base">
               {admin?.name?.charAt(0)?.toUpperCase() || 'A'}
             </div>
             <div className="hidden lg:block text-left">
@@ -256,7 +258,7 @@ const AdminLayout = () => {
             </div>
             <FiChevronDown 
               size={18} 
-              className={`text-secondary-500 transition-transform ${profileDropdownOpen ? 'rotate-180' : ''}`}
+              className={`text-secondary-500 transition-transform hidden sm:block ${profileDropdownOpen ? 'rotate-180' : ''}`}
             />
           </button>
           
@@ -358,10 +360,10 @@ const AdminLayout = () => {
 
       {/* Profile Settings Modal */}
       {showProfileSettings && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Profile Settings</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">Profile Settings</h2>
               <button
                 onClick={() => setShowProfileSettings(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -369,7 +371,7 @@ const AdminLayout = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
               {/* Tabs */}
               <div className="flex gap-2 mb-6 border-b border-gray-200">
                 <button
@@ -419,15 +421,15 @@ const AdminLayout = () => {
                       className="input-field rounded-lg"
                     />
                   </div>
-                  <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                  <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200 sticky bottom-0 bg-white pb-2">
                     <button
                       type="button"
                       onClick={() => setShowProfileSettings(false)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn-primary flex items-center gap-2">
+                    <button type="submit" className="btn-primary flex items-center justify-center gap-2 px-4 py-2.5 w-full sm:w-auto">
                       <FiSave size={18} /> Save Changes
                     </button>
                   </div>
@@ -470,15 +472,15 @@ const AdminLayout = () => {
                       minLength={6}
                     />
                   </div>
-                  <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                  <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200 sticky bottom-0 bg-white pb-2">
                     <button
                       type="button"
                       onClick={() => setShowProfileSettings(false)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn-primary flex items-center gap-2">
+                    <button type="submit" className="btn-primary flex items-center justify-center gap-2 px-4 py-2.5 w-full sm:w-auto">
                       <FiSave size={18} /> Change Password
                     </button>
                   </div>

@@ -153,18 +153,18 @@ const AdminFees = () => {
         <title>Fees - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold">Fee Management</h1>
-            <p className="text-gray-600 mt-1">Manage student fees and payments</p>
+            <h1 className="text-2xl sm:text-3xl font-bold">Fee Management</h1>
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage student fees and payments</p>
           </div>
-          <button onClick={handleAdd} className="btn-primary flex items-center">
+          <button onClick={handleAdd} className="btn-primary flex items-center text-sm sm:text-base px-4 py-2">
             <FiPlus className="mr-2" /> Add Fee Record
           </button>
         </div>
 
         {/* Filters */}
-        <div className="bg-white p-4 rounded-xl shadow-md mb-6 flex gap-4">
+        <div className="bg-white p-4 rounded-xl shadow-md mb-6 flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -172,13 +172,13 @@ const AdminFees = () => {
               placeholder="Search by student name or admission number..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input-field pl-10 rounded-lg"
+              className="input-field pl-10 rounded-lg text-sm sm:text-base"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="input-field rounded-lg w-48"
+            className="input-field rounded-lg w-full sm:w-48 text-sm sm:text-base"
           >
             <option value="">All Status</option>
             <option value="paid">Paid</option>
@@ -198,14 +198,14 @@ const AdminFees = () => {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Admission #</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paid</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pending</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Admission #</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden md:table-cell">Total</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Paid</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Pending</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -213,26 +213,29 @@ const AdminFees = () => {
                     const student = fee.studentId;
                     return (
                       <tr key={fee._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {student ? `${student.firstName} ${student.lastName}` : 'N/A'}
+                        <td className="px-3 sm:px-6 py-4">
+                          <div className="font-medium">{student ? `${student.firstName} ${student.lastName}` : 'N/A'}</div>
+                          <div className="text-xs text-gray-500 sm:hidden mt-1">#{fee.admissionNumber}</div>
+                          <div className="text-xs text-gray-500 md:hidden mt-1">Total: ₹{fee.totalAmount?.toLocaleString()}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">{fee.admissionNumber}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{fee.class}</td>
-                        <td className="px-6 py-4 whitespace-nowrap font-semibold">₹{fee.totalAmount?.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-green-600">₹{fee.paidAmount?.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-red-600">₹{fee.pendingAmount?.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(fee.status)}`}>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden sm:table-cell">{fee.admissionNumber}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">{fee.class}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap font-semibold hidden md:table-cell">₹{fee.totalAmount?.toLocaleString()}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-green-600 hidden lg:table-cell">₹{fee.paidAmount?.toLocaleString()}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-red-600 hidden lg:table-cell">₹{fee.pendingAmount?.toLocaleString()}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                          <span className={`px-2 sm:px-3 py-1 rounded-lg text-xs font-semibold border ${getStatusBadge(fee.status)}`}>
                             {fee.status?.toUpperCase()}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap flex gap-2">
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                           {fee.pendingAmount > 0 && (
                             <button
                               onClick={() => handlePayment(fee)}
-                              className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm"
+                              className="px-2 sm:px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-xs sm:text-sm"
                             >
-                              Record Payment
+                              <span className="hidden sm:inline">Record Payment</span>
+                              <span className="sm:hidden">Pay</span>
                             </button>
                           )}
                         </td>
@@ -253,10 +256,10 @@ const AdminFees = () => {
 
       {/* Add Fee Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Add Fee Record</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">Add Fee Record</h2>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -264,8 +267,8 @@ const AdminFees = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-3">
-              <div className="grid grid-cols-3 gap-3">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Student *</label>
                   <select
@@ -303,9 +306,9 @@ const AdminFees = () => {
                   />
                 </div>
               </div>
-              <div className="border-t border-gray-200 pt-4">
-                <h3 className="text-lg font-semibold mb-3">Fee Structure</h3>
-                <div className="grid grid-cols-3 gap-3">
+              <div className="border-t border-gray-200 pt-4 col-span-1 sm:col-span-2 lg:col-span-3">
+                <h3 className="text-base sm:text-lg font-semibold mb-3">Fee Structure</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Tuition Fee</label>
                     <input
@@ -399,15 +402,15 @@ const AdminFees = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-gray-200 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary px-4 py-2.5 w-full sm:w-auto">
                   Create Fee Record
                 </button>
               </div>
@@ -418,10 +421,10 @@ const AdminFees = () => {
 
       {/* Payment Modal */}
       {showPaymentModal && selectedFee && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Record Payment</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">Record Payment</h2>
               <button
                 onClick={() => setShowPaymentModal(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -429,7 +432,7 @@ const AdminFees = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handlePaymentSubmit} className="p-6 space-y-3">
+            <form onSubmit={handlePaymentSubmit} className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Amount *</label>
                 <input
@@ -477,15 +480,15 @@ const AdminFees = () => {
                   placeholder="Optional"
                 />
               </div>
-              <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-gray-200 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowPaymentModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary px-4 py-2.5 w-full sm:w-auto">
                   Record Payment
                 </button>
               </div>

@@ -140,9 +140,9 @@ const AdminTeachers = () => {
         <title>Teachers - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Teachers</h1>
-          <button onClick={handleAdd} className="btn-primary flex items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold">Teachers</h1>
+          <button onClick={handleAdd} className="btn-primary flex items-center text-sm sm:text-base px-4 py-2">
             <FiPlus className="mr-2" /> Add Teacher
           </button>
         </div>
@@ -198,10 +198,10 @@ const AdminTeachers = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">
                 {editingTeacher ? 'Edit Teacher' : 'Add Teacher'}
               </h2>
               <button
@@ -211,8 +211,8 @@ const AdminTeachers = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-3">
-              <div className="grid grid-cols-3 gap-3">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
                   <input
@@ -312,23 +312,23 @@ const AdminTeachers = () => {
                   />
                 </div>
               </div>
-              <div className="col-span-3">
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
                 <textarea
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="input-field rounded-lg"
+                  className="input-field rounded-lg text-sm sm:text-base"
                   rows="2"
                 />
               </div>
-              <div className="col-span-3">
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Photo</label>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   {photoPreview && (
-                    <img src={photoPreview} alt="Preview" className="w-24 h-24 object-cover rounded-xl" />
+                    <img src={photoPreview} alt="Preview" className="w-24 h-24 object-cover rounded-xl flex-shrink-0" />
                   )}
                   <label className="cursor-pointer">
-                    <span className="btn-secondary flex items-center rounded-lg">
+                    <span className="btn-secondary flex items-center rounded-lg text-sm sm:text-base">
                       <FiUpload className="mr-2" /> Upload Photo
                     </span>
                     <input
@@ -340,15 +340,15 @@ const AdminTeachers = () => {
                   </label>
                 </div>
               </div>
-              <div className="flex justify-end gap-3 pt-3 border-t border-gray-200 col-span-3">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-gray-200 col-span-1 sm:col-span-2 lg:col-span-3 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary px-4 py-2.5 w-full sm:w-auto">
                   {editingTeacher ? 'Update' : 'Add'} Teacher
                 </button>
               </div>

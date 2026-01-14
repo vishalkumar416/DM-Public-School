@@ -123,15 +123,15 @@ const AdminStudents = () => {
         <title>Students - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Students</h1>
-          <button onClick={handleAdd} className="btn-primary flex items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold">Students</h1>
+          <button onClick={handleAdd} className="btn-primary flex items-center text-sm sm:text-base px-4 py-2">
             <FiPlus className="mr-2" /> Add Student
           </button>
         </div>
 
         {/* Filters */}
-        <div className="bg-white p-4 rounded-lg shadow-md mb-6 flex gap-4">
+        <div className="bg-white p-4 rounded-lg shadow-md mb-6 flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -139,13 +139,13 @@ const AdminStudents = () => {
               placeholder="Search students..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input-field pl-10"
+              className="input-field pl-10 text-sm sm:text-base"
             />
           </div>
           <select
             value={classFilter}
             onChange={(e) => setClassFilter(e.target.value)}
-            className="input-field"
+            className="input-field text-sm sm:text-base"
           >
             <option value="">All Classes</option>
             {['Nursery', 'LKG', 'UKG', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'].map(
@@ -169,40 +169,45 @@ const AdminStudents = () => {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Admission #</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Father</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Admission #</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden md:table-cell">Father</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Phone</th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredStudents.length > 0 ? (
                     filteredStudents.map((student) => (
                       <tr key={student._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {student.firstName} {student.lastName}
+                        <td className="px-3 sm:px-6 py-4">
+                          <div className="font-medium">{student.firstName} {student.lastName}</div>
+                          <div className="text-xs text-gray-500 sm:hidden mt-1">#{student.admissionNumber}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">{student.admissionNumber}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden sm:table-cell">{student.admissionNumber}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                           {student.class} - {student.section}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">{student.fatherName}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{student.fatherPhone}</td>
-                        <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-                          <button
-                            onClick={() => handleEdit(student)}
-                            className="text-primary-500 hover:text-primary-600 transition-colors"
-                          >
-                            <FiEdit size={18} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(student._id)}
-                            className="text-red-600 hover:text-red-700"
-                          >
-                            <FiTrash2 size={18} />
-                          </button>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden md:table-cell">{student.fatherName}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden lg:table-cell">{student.fatherPhone}</td>
+                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleEdit(student)}
+                              className="text-primary-500 hover:text-primary-600 transition-colors p-1"
+                              aria-label="Edit student"
+                            >
+                              <FiEdit size={18} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(student._id)}
+                              className="text-red-600 hover:text-red-700 p-1"
+                              aria-label="Delete student"
+                            >
+                              <FiTrash2 size={18} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
@@ -222,10 +227,10 @@ const AdminStudents = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-6 py-4 flex justify-between items-center">
-              <h2 className="text-2xl font-bold">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-2xl font-bold">
                 {editingStudent ? 'Edit Student' : 'Add Student'}
               </h2>
               <button
@@ -235,8 +240,8 @@ const AdminStudents = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-3">
-              <div className="grid grid-cols-3 gap-3">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 overflow-y-auto flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
                   <input
@@ -364,24 +369,24 @@ const AdminStudents = () => {
                   />
                 </div>
               </div>
-              <div className="col-span-3">
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
                 <textarea
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="input-field rounded-lg"
+                  className="input-field rounded-lg text-sm sm:text-base"
                   rows="2"
                 />
               </div>
-              <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-gray-200 col-span-1 sm:col-span-2 lg:col-span-3 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary px-4 py-2.5 w-full sm:w-auto">
                   {editingStudent ? 'Update' : 'Add'} Student
                 </button>
               </div>

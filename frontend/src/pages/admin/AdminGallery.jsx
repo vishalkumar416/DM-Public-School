@@ -136,9 +136,9 @@ const AdminGallery = () => {
         <title>Gallery - Admin Panel</title>
       </Helmet>
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Gallery</h1>
-          <button onClick={handleAdd} className="btn-primary flex items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold">Gallery</h1>
+          <button onClick={handleAdd} className="btn-primary flex items-center text-sm sm:text-base px-4 py-2">
             <FiPlus className="mr-2" /> Add Gallery
           </button>
         </div>
@@ -195,10 +195,10 @@ const AdminGallery = () => {
 
       {/* Add Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-4">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-5 py-3 flex justify-between items-center sticky top-0 bg-white z-10">
-              <h2 className="text-xl font-bold">Add Gallery</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-4 max-h-[95vh] flex flex-col">
+            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-5 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+              <h2 className="text-lg sm:text-xl font-bold">Add Gallery</h2>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-500 hover:text-gray-700 rounded-full p-1 hover:bg-gray-100 transition-colors"
@@ -206,7 +206,7 @@ const AdminGallery = () => {
                 <FiX size={24} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-5 space-y-3 max-h-[85vh] overflow-y-auto">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-3 overflow-y-auto flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Gallery Type *</label>
                 <div className="flex gap-2">
@@ -264,22 +264,22 @@ const AdminGallery = () => {
                   rows="2"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
                   <select
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   >
                     <option value="">Select Category</option>
                     <option value="Events">Events</option>
                     <option value="Sports">Sports</option>
-                    <option value="Academics">Academics</option>
+                    <option value="Academic">Academic</option>
                     <option value="Cultural">Cultural</option>
+                    <option value="Infrastructure">Infrastructure</option>
                     <option value="Annual Day">Annual Day</option>
-                    <option value="Republic Day">Republic Day</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -289,7 +289,7 @@ const AdminGallery = () => {
                     type="date"
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="input-field"
+                    className="input-field text-sm py-2"
                   />
                 </div>
               </div>
@@ -388,15 +388,15 @@ const AdminGallery = () => {
                   <p className="text-xs text-gray-500 mt-1">{imageFiles.length} images selected</p>
                 </div>
               )}
-              <div className="flex justify-end gap-2 pt-3 border-t border-gray-200 col-span-2">
+              <div className="flex flex-col sm:flex-row justify-end gap-2 pt-3 border-t border-gray-200 col-span-2 sticky bottom-0 bg-white pb-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 w-full sm:w-auto"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary text-sm px-4 py-2">
+                <button type="submit" className="btn-primary text-sm px-4 py-2.5 w-full sm:w-auto">
                   {galleryType === 'video' ? 'Add Video' : 'Add Gallery'}
                 </button>
               </div>
