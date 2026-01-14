@@ -134,7 +134,7 @@ You are advised to review this Privacy Policy periodically for any changes. Chan
 **D.M. Public School**
 Garahi, Desari, Vaishali, Bihar - 844504
 Phone: 7352737650
-Email: info@dmpschool.com
+Email: aartikumari05032002@gmail.com
 
 **Data Protection Officer:**
 For privacy-related inquiries, you can also contact our Data Protection Officer at the above address or email.`

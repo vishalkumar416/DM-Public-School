@@ -23,6 +23,7 @@ import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import useAuthStore from '../../store/authStore';
 import Notifications from '../Notifications';
+import Footer from '../Footer';
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -351,10 +352,11 @@ const AdminLayout = () => {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 h-full w-full lg:w-auto overflow-y-auto overflow-x-hidden">
-          <main className="p-4 lg:p-8 min-h-full">
+        <div className="flex-1 h-full w-full lg:w-auto overflow-y-auto overflow-x-hidden flex flex-col">
+          <main className="p-4 lg:p-8 flex-1">
             <Outlet />
           </main>
+          <Footer />
         </div>
       </div>
 

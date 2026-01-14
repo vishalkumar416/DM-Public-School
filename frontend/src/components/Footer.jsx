@@ -176,10 +176,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <FiMail className="text-primary-600 flex-shrink-0" size={18} />
                 <a
-                  href="mailto:info@dmpschool.com"
+                  href="mailto:aartikumari05032002@gmail.com"
                   className="text-secondary-700 hover:text-primary-600 transition-colors text-sm"
                 >
-                  info@dmpschool.com
+                  aartikumari05032002@gmail.com
                 </a>
               </div>
             </div>

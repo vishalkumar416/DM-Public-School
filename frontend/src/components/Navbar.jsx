@@ -118,17 +118,30 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-medium py-3'
-          : 'bg-white/80 backdrop-blur-sm py-4'
-      }`}
-    >
-      <div className="w-full">
+    <>
+      {/* Scrolling Slogan Banner */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-500 to-primary-600 text-white py-2.5 overflow-hidden shadow-md">
+        <div className="animate-marquee whitespace-nowrap">
+          <span className="inline-block px-6 text-sm sm:text-base font-medium">
+            अशिक्षित को शिक्षा दो अज्ञानी को ज्ञान और शिक्षा से ही बन सकता है मेरा भारत देश महान | Give education to the uneducated, knowledge to the ignorant, and only through education can my India become great.
+          </span>
+          <span className="inline-block px-6 text-sm sm:text-base font-medium">
+            अशिक्षित को शिक्षा दो अज्ञानी को ज्ञान और शिक्षा से ही बन सकता है मेरा भारत देश महान | Give education to the uneducated, knowledge to the ignorant, and only through education can my India become great.
+          </span>
+        </div>
+      </div>
+      
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.3 }}
+        className={`fixed top-8 sm:top-10 left-0 right-0 z-40 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-md shadow-medium py-3'
+            : 'bg-white/80 backdrop-blur-sm py-4'
+        }`}
+      >
+        <div className="w-full">
         <div className="flex items-center justify-between">
           {/* Logo - Extreme Left */}
           <Link to="/" className="flex items-center space-x-3 group pl-4 sm:pl-6 lg:pl-8">
@@ -442,6 +455,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
     </motion.nav>
+    </>
   );
 };
 

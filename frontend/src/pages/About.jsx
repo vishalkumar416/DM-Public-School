@@ -25,7 +25,7 @@ const About = () => {
   };
 
   const whyChooseUs = [
-    { title: 'CBSE Affiliation', desc: 'Nationally recognized curriculum', icon: FiAward },
+    { title: 'Bihar Government Affiliated', desc: 'Following NCERT curriculum', icon: FiAward },
     { title: 'Experienced Faculty', desc: 'Qualified and dedicated teachers', icon: FiUsers },
     { title: 'Modern Facilities', desc: 'Well-equipped classrooms and labs', icon: FiBookOpen },
     { title: 'Holistic Education', desc: 'Academic, sports, and arts', icon: FiTarget },
@@ -113,7 +113,7 @@ const About = () => {
                   <p className="text-xl text-secondary-800 leading-relaxed font-medium">
                     D.M. Public School, established in <span className="text-primary-600 font-bold">2020</span>, is a premier educational institution located in{' '}
                     <span className="text-primary-600 font-semibold">Garahi, Desari, Vaishali, Bihar</span>. Our school is affiliated with{' '}
-                    <span className="text-primary-600 font-semibold">CBSE (Central Board of Secondary Education)</span> and follows the{' '}
+                    <span className="text-primary-600 font-semibold">Bihar Government</span> and follows the{' '}
                     <span className="text-primary-600 font-semibold">NCERT curriculum</span>, ensuring that our students receive a comprehensive and nationally recognized education.
                   </p>
                   
@@ -148,8 +148,8 @@ const About = () => {
               {[
                 {
                   icon: FiAward,
-                  title: 'CBSE Affiliated',
-                  description: 'Nationally recognized curriculum',
+                  title: 'Bihar Government Affiliated',
+                  description: 'Following NCERT curriculum',
                   gradient: 'from-blue-400 to-blue-500',
                 },
                 {

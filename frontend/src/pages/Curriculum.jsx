@@ -32,7 +32,7 @@ const Curriculum = () => {
                 Curriculum
               </h1>
               <p className="text-xl md:text-2xl text-white/90 font-light">
-                CBSE / NCERT Curriculum Framework
+                NCERT Curriculum Framework (Bihar Government Affiliated)
               </p>
             </motion.div>
           </div>
@@ -63,7 +63,7 @@ const Curriculum = () => {
                 CBSE / NCERT <span className="gradient-text">Curriculum</span>
               </h2>
               <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-                D.M. Public School follows the CBSE (Central Board of Secondary Education) curriculum and NCERT guidelines
+                D.M. Public School is a Bihar Government Affiliated institution following the NCERT (National Council of Educational Research and Training) curriculum framework
               </p>
             </motion.div>
 
@@ -210,6 +210,7 @@ const Curriculum = () => {
 };
 
 export default Curriculum;
+
 
 
 

@@ -21,9 +21,9 @@ const Chatbot = () => {
   const schoolInfo = {
     address: "D.M. Public School, Garahi, Desari, Vaishali, Bihar - Located 500 meters west from Imli Chowk",
     phone: "7352737650",
-    email: "info@dmpschool.com",
+    email: "aartikumari05032002@gmail.com",
     established: "2020",
-    affiliation: "CBSE (Central Board of Secondary Education)",
+    affiliation: "Bihar Government",
     curriculum: "NCERT",
     classes: "Nursery to Class X",
     admission: "You can apply for admission through our online admission form. Visit the Admissions page for more details.",
@@ -32,7 +32,7 @@ const Chatbot = () => {
     director: "Our Director provides visionary leadership for the school's growth and development.",
     timings: "School hours: 8:00 AM to 3:00 PM (Monday to Saturday)",
     fees: "For detailed fee structure, please contact the school office or visit during office hours.",
-    contact: "You can reach us at: Phone - 7352737650, Email - info@dmpschool.com, or visit us at the school campus.",
+    contact: "You can reach us at: Phone - 7352737650, Email - aartikumari05032002@gmail.com, or visit us at the school campus.",
   };
 
   // Keywords and responses

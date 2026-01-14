@@ -197,10 +197,13 @@ const Gallery = () => {
 
   // Separate photos and videos from API
   const displayGalleries = galleries.filter(g => !g.type || g.type === 'photo');
-  const apiVideos = galleries.filter(g => g.type === 'video' && g.videoUrl);
+  const apiVideos = galleries.filter(g => g.type === 'video' && g.videoUrl && g.videoUrl.trim() !== '');
 
-  // Combine photos and videos (API videos + hardcoded videos for now)
-  const allVideos = [...apiVideos, ...videos];
+  // Only include hardcoded videos that have actual videoUrls
+  const validHardcodedVideos = videos.filter(v => v.videoUrl && v.videoUrl.trim() !== '');
+  
+  // Combine API videos with valid hardcoded videos
+  const allVideos = [...apiVideos, ...validHardcodedVideos];
   const allItems = [...displayGalleries, ...allVideos];
 
   // Filter items based on active tab

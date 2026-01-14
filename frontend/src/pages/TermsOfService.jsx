@@ -90,7 +90,7 @@ You may not:
 D.M. Public School
 Garahi, Desari, Vaishali, Bihar - 844504
 Phone: 7352737650
-Email: info@dmpschool.com`
+Email: aartikumari05032002@gmail.com`
     }
   ];
 

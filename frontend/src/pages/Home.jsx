@@ -15,8 +15,8 @@ const Home = () => {
   const features = [
     {
       icon: FiAward,
-      title: 'CBSE Affiliated',
-      description: 'Nationally recognized curriculum ensuring quality education',
+      title: 'Bihar Government Affiliated',
+      description: 'Following NCERT curriculum ensuring quality education',
       color: 'from-blue-500 to-blue-600',
     },
     {
@@ -41,14 +41,14 @@ const Home = () => {
 
   const stats = [
     { number: '500+', label: 'Students', icon: FiUsers },
-    { number: '50+', label: 'Teachers', icon: FiAward },
+    { number: '20+', label: 'Teachers', icon: FiAward },
     { number: '10+', label: 'Years Experience', icon: FiTrendingUp },
-    { number: '100%', label: 'CBSE Curriculum', icon: FiCheckCircle },
+    { number: '100%', label: 'NCERT Curriculum', icon: FiCheckCircle },
   ];
 
   const highlights = [
     'Nursery to Class X Education',
-    'CBSE Affiliated Institution',
+    'Bihar Government Affiliated Institution',
     'Modern Infrastructure',
     'Experienced Faculty',
     'Sports & Extracurricular Activities',
@@ -82,12 +82,12 @@ const Home = () => {
         <title>Home - D.M. Public School | Excellence in Education</title>
         <meta
           name="description"
-          content="D.M. Public School - A premier CBSE affiliated institution in Garahi, Desari, Vaishali, Bihar. Quality education from Nursery to Class X."
+          content="D.M. Public School - A premier Bihar Government affiliated institution in Garahi, Desari, Vaishali, Bihar. Quality education from Nursery to Class X following NCERT curriculum."
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 pt-8 sm:pt-10">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
@@ -175,7 +175,7 @@ const Home = () => {
                     <p className="text-xs text-secondary-600">Garahi, Desari, Vaishali</p>
                   </div>
                   <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
-                    <p className="text-sm font-semibold text-primary-600">CBSE Affiliated</p>
+                    <p className="text-sm font-semibold text-primary-600">Bihar Government Affiliated</p>
                     <p className="text-xs text-secondary-600">Nursery to Class X</p>
                   </div>
                 </div>
@@ -301,8 +301,8 @@ const Home = () => {
                 Empowering <span className="gradient-text">Future Leaders</span>
               </h2>
               <p className="text-lg text-secondary-600 mb-8 leading-relaxed">
-                Located in Garahi, Desari, Vaishali, Bihar, D.M. Public School is a CBSE
-                affiliated institution offering quality education from Nursery to Class X. Our
+                Located in Garahi, Desari, Vaishali, Bihar, D.M. Public School is a Bihar Government
+                affiliated institution offering quality education from Nursery to Class X following NCERT curriculum. Our
                 commitment to excellence, combined with modern infrastructure and experienced
                 faculty, creates an ideal learning environment.
               </p>
@@ -343,7 +343,7 @@ const Home = () => {
                     </div>
                     <div>
                       <h3 className="text-white font-bold text-xl">D.M. Public School</h3>
-                      <p className="text-white/80">CBSE Affiliated</p>
+                      <p className="text-white/80">Bihar Government Affiliated</p>
                     </div>
                   </div>
                   <div className="space-y-4">

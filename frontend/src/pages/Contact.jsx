@@ -74,8 +74,8 @@ const Contact = () => {
       icon: FiMail,
       title: 'Email',
       content: (
-        <a href="mailto:info@dmpschool.com" className="hover:text-primary-600 transition-colors">
-          info@dmpschool.com
+        <a href="mailto:aartikumari05032002@gmail.com" className="hover:text-primary-600 transition-colors">
+          aartikumari05032002@gmail.com
         </a>
       ),
       color: 'from-purple-500 to-purple-600',
