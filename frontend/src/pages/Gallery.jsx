@@ -340,24 +340,30 @@ const Gallery = () => {
                 transition={{ duration: 0.4 }}
                 className="mb-8"
               >
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                  {['All Videos', 'Annual Day', 'Republic Day', 'Birthday Celebrations', 'Dance Videos'].map((category) => (
-                    <button
-                      key={category}
-                      className={`flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        category === 'All Videos'
-                          ? 'bg-primary-500 text-white shadow-md'
-                          : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 border border-gray-200 hover:border-primary-300'
-                      }`}
-                    >
-                      {category === 'Annual Day' && <FiCalendar size={14} />}
-                      {category === 'Republic Day' && <FiFlag size={14} />}
-                      {category === 'Birthday Celebrations' && <FiGift size={14} />}
-                      {category === 'Dance Videos' && <FiMusic size={14} />}
-                      {category === 'All Videos' && <FiVideo size={14} />}
-                      <span>{category}</span>
-                    </button>
-                  ))}
+                <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2">
+                  {[
+                    { label: 'All Videos', icon: FiVideo },
+                    { label: 'Annual Day', icon: FiCalendar },
+                    { label: 'Republic Day', icon: FiFlag },
+                    { label: 'Birthday Celebrations', icon: FiGift },
+                    { label: 'Dance Videos', icon: FiMusic }
+                  ].map((category) => {
+                    const Icon = category.icon;
+                    const isActive = category.label === 'All Videos';
+                    return (
+                      <button
+                        key={category.label}
+                        className={`flex items-center justify-center space-x-1.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap min-w-fit ${
+                          isActive
+                            ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
+                            : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 border border-gray-200 hover:border-primary-300 shadow-soft'
+                        }`}
+                      >
+                        <Icon size={16} className="sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span>{category.label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}

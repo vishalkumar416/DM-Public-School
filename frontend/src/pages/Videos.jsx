@@ -214,7 +214,7 @@ const Videos = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-hide"
+              className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2"
             >
               {categories.map((category) => {
                 const Icon = category.icon;
@@ -223,13 +223,13 @@ const Videos = () => {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap ${
+                    className={`flex items-center justify-center space-x-1.5 sm:space-x-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 whitespace-nowrap min-w-fit ${
                       isActive
                         ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
                         : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft border border-gray-200 hover:border-primary-300'
                     }`}
                   >
-                    <Icon size={18} className="sm:w-5 sm:h-5" />
+                    <Icon size={16} className="sm:w-4 sm:h-4 flex-shrink-0" />
                     <span>{category.label}</span>
                   </button>
                 );
