@@ -158,13 +158,16 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Chatbot Toggle Button */}
+      {/* Chatbot Toggle Button - Hidden when chat is open on mobile */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-2xl flex items-center justify-center z-40 hover:from-primary-600 hover:to-primary-700 transition-all duration-300 hover:scale-110 active:scale-95 overflow-visible group"
+        className={`fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-2xl flex items-center justify-center z-30 hover:from-primary-600 hover:to-primary-700 transition-all duration-300 hover:scale-110 active:scale-95 overflow-visible group ${
+          isOpen ? 'lg:z-40' : 'z-40'
+        }`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Open chatbot"
+        style={{ display: isOpen ? 'none' : 'flex' }}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -252,27 +255,27 @@ const Chatbot = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - Only on desktop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 hidden lg:block"
             />
 
-            {/* Chat Window */}
+            {/* Chat Window - Full screen on mobile, window on desktop */}
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] max-w-md h-[calc(100vh-8rem)] max-h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-secondary-200 overflow-hidden"
+              className="fixed inset-0 lg:inset-auto lg:bottom-24 lg:right-6 lg:w-[calc(100vw-3rem)] lg:max-w-md lg:h-[calc(100vh-8rem)] lg:max-h-[600px] bg-white lg:rounded-2xl shadow-2xl flex flex-col z-50 lg:border lg:border-secondary-200 overflow-hidden"
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 sm:p-5 flex items-center justify-between flex-shrink-0">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg
                       width="24"
                       height="24"
@@ -307,20 +310,21 @@ const Chatbot = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">School Assistant</h3>
+                    <h3 className="font-bold text-base sm:text-lg">School Assistant</h3>
                     <p className="text-xs text-white/80">D.M. Public School</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors flex-shrink-0"
+                  aria-label="Close chat"
                 >
-                  <FiX size={18} />
+                  <FiX size={20} />
                 </button>
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-secondary-50 to-white">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-gradient-to-b from-secondary-50 to-white scrollbar-hide">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}
@@ -404,27 +408,28 @@ const Chatbot = () => {
               </div>
 
               {/* Input */}
-              <form onSubmit={handleSendMessage} className="p-4 border-t border-secondary-200 bg-white">
-                <div className="flex items-center space-x-2">
+              <form onSubmit={handleSendMessage} className="p-4 sm:p-5 border-t border-secondary-200 bg-white flex-shrink-0">
+                <div className="flex items-center space-x-2 sm:space-x-3">
                   <input
                     ref={inputRef}
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 px-4 py-3 border border-secondary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent bg-white text-secondary-900 placeholder:text-secondary-400"
+                    className="flex-1 px-4 py-3 sm:py-3.5 border border-secondary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent bg-white text-secondary-900 placeholder:text-secondary-400 text-sm sm:text-base"
                   />
                   <motion.button
                     type="submit"
                     disabled={!inputValue.trim()}
-                    className="w-12 h-12 bg-primary-500 text-white rounded-xl flex items-center justify-center hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-12 h-12 sm:w-14 sm:h-14 bg-primary-500 text-white rounded-xl flex items-center justify-center hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label="Send message"
                   >
                     <FiSend size={20} />
                   </motion.button>
                 </div>
-                <p className="text-xs text-secondary-500 mt-2 text-center">
+                <p className="text-xs text-secondary-500 mt-2 text-center hidden sm:block">
                   Ask me about admissions, contact info, facilities, and more!
                 </p>
               </form>
