@@ -45,24 +45,45 @@ const app = express();
 app.use(helmet());
 
 // ✅ FIXED CORS CONFIG (IMPORTANT)
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://dm-public-school.vercel.app'
-];
+// Build allowed origins list
+const allowedOrigins = ['http://localhost:5173'];
+
+// Add frontend URL from environment variable if provided
+if (process.env.FRONTEND_URL) {
+  const frontendUrls = process.env.FRONTEND_URL.split(',').map(url => url.trim());
+  allowedOrigins.push(...frontendUrls);
+}
+
+// CORS configuration - supports Vercel deployments and custom domains
+const vercelPattern = /^https:\/\/.*\.vercel\.app$/;
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow Postman / curl
+      // Allow requests with no origin (like Postman, curl, mobile apps)
+      if (!origin) return callback(null, true);
+      
+      // Check if origin is in allowed list
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
-      } else {
+      } 
+      // In production, check if origin matches Vercel pattern
+      else if (process.env.NODE_ENV === 'production' && vercelPattern.test(origin)) {
+        callback(null, true);
+      } 
+      // In development, allow all origins for easier testing
+      else if (process.env.NODE_ENV !== 'production') {
+        callback(null, true);
+      } 
+      // Block in production if not allowed
+      else {
+        console.warn(`⚠️ CORS blocked origin: ${origin}`);
         callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
   })
 );
 
