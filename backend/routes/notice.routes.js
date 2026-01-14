@@ -116,13 +116,56 @@ router.post('/', protect, authorize('admin', 'super_admin'), uploadSingle('attac
       }
     }
 
+    // Parse arrays from JSON strings (FormData sends arrays as JSON strings)
+    let parsedTargetAudience = ['All'];
+    if (targetAudience) {
+      try {
+        // If it's a string, try to parse it as JSON
+        if (typeof targetAudience === 'string') {
+          parsedTargetAudience = JSON.parse(targetAudience);
+        } else if (Array.isArray(targetAudience)) {
+          parsedTargetAudience = targetAudience;
+        } else {
+          parsedTargetAudience = [targetAudience];
+        }
+      } catch (e) {
+        // If parsing fails, treat as single value
+        parsedTargetAudience = [targetAudience];
+      }
+    }
+
+    let parsedClasses = ['All'];
+    if (classes) {
+      try {
+        // If it's a string, try to parse it as JSON
+        if (typeof classes === 'string') {
+          parsedClasses = JSON.parse(classes);
+        } else if (Array.isArray(classes)) {
+          parsedClasses = classes;
+        } else {
+          parsedClasses = [classes];
+        }
+      } catch (e) {
+        // If parsing fails, treat as single value
+        parsedClasses = [classes];
+      }
+    }
+
+    // Ensure arrays are actually arrays
+    if (!Array.isArray(parsedTargetAudience)) {
+      parsedTargetAudience = [parsedTargetAudience];
+    }
+    if (!Array.isArray(parsedClasses)) {
+      parsedClasses = [parsedClasses];
+    }
+
     const noticeData = {
       title,
       description,
       category: category || 'General',
       priority: priority || 'Medium',
-      targetAudience: targetAudience ? (Array.isArray(targetAudience) ? targetAudience : [targetAudience]) : ['All'],
-      classes: classes ? (Array.isArray(classes) ? classes : [classes]) : ['All'],
+      targetAudience: parsedTargetAudience,
+      classes: parsedClasses,
       attachment,
       startDate: startDate ? new Date(startDate) : new Date(),
       endDate: endDate ? new Date(endDate) : undefined,
@@ -189,10 +232,40 @@ router.put('/:id', protect, authorize('admin', 'super_admin'), uploadSingle('att
       }
     }
 
-    const updateData = {
-      ...req.body,
-      attachment
-    };
+    // Parse arrays from JSON strings (FormData sends arrays as JSON strings)
+    const updateData = { ...req.body, attachment };
+
+    // Parse targetAudience if provided
+    if (updateData.targetAudience) {
+      try {
+        if (typeof updateData.targetAudience === 'string') {
+          updateData.targetAudience = JSON.parse(updateData.targetAudience);
+        }
+        if (!Array.isArray(updateData.targetAudience)) {
+          updateData.targetAudience = [updateData.targetAudience];
+        }
+      } catch (e) {
+        updateData.targetAudience = Array.isArray(updateData.targetAudience) 
+          ? updateData.targetAudience 
+          : [updateData.targetAudience];
+      }
+    }
+
+    // Parse classes if provided
+    if (updateData.classes) {
+      try {
+        if (typeof updateData.classes === 'string') {
+          updateData.classes = JSON.parse(updateData.classes);
+        }
+        if (!Array.isArray(updateData.classes)) {
+          updateData.classes = [updateData.classes];
+        }
+      } catch (e) {
+        updateData.classes = Array.isArray(updateData.classes) 
+          ? updateData.classes 
+          : [updateData.classes];
+      }
+    }
 
     if (updateData.startDate) {
       updateData.startDate = new Date(updateData.startDate);
