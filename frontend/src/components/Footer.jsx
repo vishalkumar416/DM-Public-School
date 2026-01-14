@@ -16,9 +16,27 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e) => {
     // Scroll to top immediately when footer link is clicked
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll multiple elements to ensure it works
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
+    
+    // Also scroll after navigation completes
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollTop = 0;
+      }
+    }, 100);
   };
 
   const footerLinks = {

@@ -1,10 +1,36 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import Chatbot from '../Chatbot';
 
 const PublicLayout = () => {
-  console.log('PublicLayout: Rendering...');
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Ensure scroll to top on route change
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollTop = 0;
+      }
+    };
+    
+    // Scroll immediately
+    scrollToTop();
+    
+    // Also scroll after a small delay to handle any async content loading
+    const timeoutId = setTimeout(scrollToTop, 0);
+    const timeoutId2 = setTimeout(scrollToTop, 100);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
+    };
+  }, [location.pathname]);
   
   try {
     return (
