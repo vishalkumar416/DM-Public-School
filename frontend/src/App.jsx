@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './components/layouts/PublicLayout';
 import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 
 // Public Pages
 import Home from './pages/Home';
@@ -34,7 +35,9 @@ function App() {
   // Add error handling
   try {
     return (
-      <Routes>
+      <>
+        <ScrollToTop />
+        <Routes>
         {/* Public Routes */}
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<Home />} />
@@ -73,6 +76,7 @@ function App() {
           <Route path="content" element={<AdminContent />} />
         </Route>
       </Routes>
+      </>
     );
   } catch (error) {
     console.error('App Error:', error);
