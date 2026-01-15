@@ -141,7 +141,7 @@ const Home = () => {
       </Helmet>
 
       {/* Important Notices Marquee */}
-      <section className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 dark:from-primary-800 dark:via-primary-700 dark:to-primary-800 text-white py-2.5 sm:py-3 shadow-md relative overflow-hidden z-50 border-b border-primary-700/20">
+      <section className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 text-white py-2.5 sm:py-3 shadow-md relative overflow-hidden z-50 border-b border-orange-700/30">
         <div className="container-custom">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             {/* Slogan Section */}

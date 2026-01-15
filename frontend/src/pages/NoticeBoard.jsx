@@ -116,7 +116,7 @@ const NoticeBoard = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 dark:from-primary-700 dark:via-primary-800 dark:to-primary-900 text-white relative overflow-hidden">
+      <section className="pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-20 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 text-white relative overflow-hidden">
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -125,19 +125,19 @@ const NoticeBoard = () => {
           }}></div>
         </div>
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary-600/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-red-700/20"></div>
         
-        <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-3 sm:px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight px-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 sm:mb-3 md:mb-4 leading-tight">
                 Notice Board
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-light px-2">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 font-light">
                 Stay Updated with Latest Announcements
               </p>
             </motion.div>
@@ -146,15 +146,15 @@ const NoticeBoard = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-4 sm:py-6 lg:py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700 sticky top-0 z-40 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
-        <div className="w-full px-3 sm:px-4 lg:px-8">
+      <section className="py-3 sm:py-4 md:py-6 lg:py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700 sticky top-0 z-40 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+        <div className="w-full px-2 sm:px-3 md:px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap justify-center items-center gap-2 sm:gap-3"
+              className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 md:gap-3"
             >
               {categories.map((cat, index) => {
                 const isActive = (cat === 'All' && !category) || category === cat;
@@ -168,10 +168,10 @@ const NoticeBoard = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setCategory(cat === 'All' ? '' : cat)}
-                    className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 ${
+                    className={`px-2.5 sm:px-3 md:px-4 lg:px-6 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 ${
                       isActive
-                        ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
-                        : 'bg-white dark:bg-gray-800 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:text-primary-600 shadow-soft border border-secondary-200 dark:border-gray-700 hover:border-primary-300'
+                        ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-medium scale-105'
+                        : 'bg-white dark:bg-gray-800 text-secondary-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 dark:hover:text-orange-400 shadow-soft border border-secondary-200 dark:border-gray-700 hover:border-orange-300'
                     }`}
                   >
                     {cat}
@@ -184,11 +184,11 @@ const NoticeBoard = () => {
       </section>
 
       {/* Notices */}
-      <section className="py-4 sm:py-6 lg:py-8 bg-gradient-to-b from-secondary-50 dark:from-gray-900 to-white dark:to-gray-800 min-h-screen">
-        <div className="w-full px-3 sm:px-4 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-3 sm:py-4 md:py-6 lg:py-8 bg-gradient-to-b from-secondary-50 dark:from-gray-900 to-white dark:to-gray-800 min-h-screen">
+        <div className="w-full px-2 sm:px-3 md:px-4 lg:px-8 max-w-7xl mx-auto">
           {loading ? (
             <div className="text-center py-12">
-              <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               <p className="mt-4 text-secondary-600 dark:text-gray-400">Loading notices...</p>
             </div>
           ) : notices.length > 0 ? (
@@ -200,12 +200,12 @@ const NoticeBoard = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05, duration: 0.5 }}
-                  className={`w-full bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg p-4 sm:p-6 border-l-4 dark:border-gray-700 ${
+                  className={`w-full bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-md sm:shadow-lg p-3 sm:p-4 md:p-6 border-l-4 dark:border-gray-700 ${
                     notice.priority === 'Urgent'
                       ? 'border-red-500'
                       : notice.priority === 'High'
                       ? 'border-orange-500'
-                      : 'border-primary-500'
+                      : 'border-orange-500'
                   }`}
                 >
                   <div className="flex flex-col gap-3 sm:gap-4">
@@ -223,7 +223,7 @@ const NoticeBoard = () => {
                       </p>
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                         <span className="flex items-center text-secondary-600 dark:text-gray-400">
-                          <FiCalendar className="mr-1.5 sm:mr-2 text-primary-500 dark:text-primary-400 flex-shrink-0" size={14} />
+                          <FiCalendar className="mr-1.5 sm:mr-2 text-orange-500 dark:text-orange-400 flex-shrink-0" size={14} />
                           {new Date(notice.createdAt).toLocaleDateString()}
                         </span>
                         <span
@@ -234,7 +234,7 @@ const NoticeBoard = () => {
                               ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
                               : notice.category === 'Holiday'
                               ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                              : 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300'
+                              : 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300'
                           }`}
                         >
                           {notice.category}
@@ -257,7 +257,7 @@ const NoticeBoard = () => {
                         href={notice.attachment.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center sm:justify-start space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors w-full sm:w-auto flex-shrink-0 border border-primary-200 dark:border-primary-800"
+                        className="flex items-center justify-center sm:justify-start space-x-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 px-3 sm:px-4 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors w-full sm:w-auto flex-shrink-0 border border-orange-200 dark:border-orange-800"
                       >
                         <FiFileText size={18} />
                         <span className="text-xs sm:text-sm font-medium">View Attachment</span>
