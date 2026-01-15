@@ -314,13 +314,13 @@ const AdminLayout = () => {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="mr-2 sm:mr-4 p-2 rounded-lg hover:bg-secondary-100 dark:hover:bg-gray-700 transition-colors"
+          className="mr-2 sm:mr-3 p-2.5 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:border-primary-300 dark:hover:border-gray-600 hover:text-primary-600 dark:hover:text-primary-400 flex items-center justify-center shadow-sm hover:shadow-md"
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <FiSun className="text-yellow-500" size={20} />
+            <FiSun className="text-yellow-500 dark:text-yellow-400" size={18} />
           ) : (
-            <FiMoon className="text-secondary-600" size={20} />
+            <FiMoon className="text-secondary-600 dark:text-gray-400" size={18} />
           )}
         </button>
         

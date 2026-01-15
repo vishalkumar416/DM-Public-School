@@ -280,19 +280,19 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="ml-4 p-2.5 rounded-lg font-medium transition-all duration-200 bg-secondary-100 dark:bg-gray-700 text-secondary-700 dark:text-gray-200 hover:bg-secondary-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-md hover:shadow-lg"
+              className="ml-3 p-2.5 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:border-primary-300 dark:hover:border-gray-600 hover:text-primary-600 dark:hover:text-primary-400 flex items-center justify-center shadow-sm hover:shadow-md"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
-                <FiSun className="text-yellow-500" size={18} />
+                <FiSun className="text-yellow-500 dark:text-yellow-400" size={18} />
               ) : (
-                <FiMoon className="text-secondary-600" size={18} />
+                <FiMoon className="text-secondary-600 dark:text-gray-400" size={18} />
               )}
             </button>
             
             <Link
               to="/admin/login"
-              className="ml-4 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 bg-secondary-900 dark:bg-gray-700 text-white dark:text-gray-200 hover:bg-secondary-800 dark:hover:bg-gray-600 flex items-center space-x-2 shadow-md hover:shadow-lg"
+              className="ml-3 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 bg-primary-600 dark:bg-primary-700 text-white hover:bg-primary-700 dark:hover:bg-primary-600 flex items-center space-x-2 shadow-md hover:shadow-lg"
             >
               <FiLogIn size={18} />
               <span>Admin</span>
@@ -465,11 +465,29 @@ const Navbar = () => {
                     );
                   })}
                   
+                  {/* Theme Toggle - Mobile */}
+                  <button
+                    onClick={toggleTheme}
+                    className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-lg font-medium transition-colors bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 mt-2"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <FiSun className="text-yellow-500" size={18} />
+                        <span>Light Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <FiMoon className="text-secondary-600" size={18} />
+                        <span>Dark Mode</span>
+                      </>
+                    )}
+                  </button>
+                  
                   {/* Admin Login Button */}
                   <Link
                     to="/admin/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-lg font-medium transition-colors bg-secondary-900 text-white hover:bg-secondary-800 active:bg-secondary-700 mt-2 shadow-md"
+                    className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-lg font-medium transition-colors bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 mt-2 shadow-md"
                   >
                     <FiLogIn size={18} />
                     <span>Admin Login</span>

@@ -102,7 +102,7 @@ const Home = () => {
 
   const highlights = [
     'Nursery to Class X Education',
-    'Bihar Government Affiliated Institution',
+    'Affiliated to Bihar Govt - Run by Nandlala Samajik Shikshan Sansthan',
     'Modern Infrastructure',
     'Experienced Faculty',
     'Sports & Extracurricular Activities',
@@ -141,12 +141,12 @@ const Home = () => {
       </Helmet>
 
       {/* Important Notices Marquee */}
-      {urgentNotices.length > 0 && (
-        <section className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white py-3 shadow-lg relative overflow-hidden">
-          <div className="container-custom">
+      <section className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white py-3 sm:py-4 shadow-lg relative overflow-hidden z-50">
+        <div className="container-custom">
+          {urgentNotices.length > 0 ? (
             <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap sm:flex-nowrap">
               <div className="flex items-center space-x-2 flex-shrink-0">
-                <FiAlertCircle className="text-yellow-300 animate-pulse" size={20} />
+                <FiAlertCircle className="text-yellow-300 animate-pulse flex-shrink-0" size={20} />
                 <span className="font-bold text-xs sm:text-base whitespace-nowrap">Important Notices:</span>
               </div>
               <div className="flex-1 overflow-hidden min-w-0">
@@ -176,14 +176,19 @@ const Home = () => {
               </div>
               <Link
                 to="/notices"
-                className="flex-shrink-0 bg-white/20 hover:bg-white/30 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap"
+                className="flex-shrink-0 bg-white/20 hover:bg-white/30 px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap"
               >
                 View All
               </Link>
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="flex items-center justify-center space-x-2">
+              <FiAlertCircle className="text-yellow-300 animate-pulse" size={18} />
+              <span className="text-sm sm:text-base font-medium">No urgent notices at the moment</span>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 pt-8 sm:pt-10">
@@ -274,8 +279,8 @@ const Home = () => {
                     <p className="text-xs text-secondary-600">Garahi, Desari, Vaishali</p>
                   </div>
                   <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
-                    <p className="text-sm font-semibold text-primary-600">Bihar Government Affiliated</p>
-                    <p className="text-xs text-secondary-600">Nursery to Class X</p>
+                    <p className="text-sm font-semibold text-primary-600">Affiliated to Bihar Govt</p>
+                    <p className="text-xs text-secondary-600">Run by Nandlala Samajik Shikshan Sansthan</p>
                   </div>
                 </div>
               </motion.div>
@@ -400,8 +405,8 @@ const Home = () => {
                 Empowering <span className="gradient-text">Future Leaders</span>
               </h2>
               <p className="text-lg text-secondary-600 mb-8 leading-relaxed">
-                Located in Garahi, Desari, Vaishali, Bihar, D.M. Public School is a Bihar Government
-                affiliated institution offering quality education from Nursery to Class X following NCERT curriculum. Our
+                Located in Garahi, Desari, Vaishali, Bihar, D.M. Public School is affiliated to Bihar Government
+                and run by Nandlala Samajik Shikshan Sansthan, offering quality education from Nursery to Class X following NCERT curriculum. Our
                 commitment to excellence, combined with modern infrastructure and experienced
                 faculty, creates an ideal learning environment.
               </p>
@@ -442,7 +447,9 @@ const Home = () => {
                     </div>
                     <div>
                       <h3 className="text-white font-bold text-xl">D.M. Public School</h3>
-                      <p className="text-white/80">Bihar Government Affiliated</p>
+                      <p className="text-white/80">Affiliated to Bihar Govt</p>
+                      <p className="text-white/70 text-xs mt-1">Run by Nandlala Samajik Shikshan Sansthan</p>
+                      <p className="text-white/70 text-xs mt-1">Run by Nandlala Samajik Shikshan Sansthan</p>
                     </div>
                   </div>
                   <div className="space-y-4">
