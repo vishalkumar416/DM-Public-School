@@ -250,6 +250,29 @@ const Home = () => {
                     Learn More
                   </Link>
                 </div>
+
+                {/* Notice Marquee Box - Green Box with Red Text */}
+                {urgentNotices.length > 0 && (
+                  <div className="mt-6 border-2 border-green-500 rounded-lg p-3 overflow-hidden">
+                    <div className="overflow-hidden">
+                      <div className="flex animate-marquee whitespace-nowrap">
+                        {urgentNotices.map((notice, index) => (
+                          <span key={notice._id || index} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
+                            {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
+                            {notice.title}: {notice.description}
+                          </span>
+                        ))}
+                        {/* Duplicate for seamless loop */}
+                        {urgentNotices.map((notice, index) => (
+                          <span key={`duplicate-${notice._id || index}`} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
+                            {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
+                            {notice.title}: {notice.description}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </motion.div>
 
               {/* Right Side - School Image */}
@@ -277,35 +300,12 @@ const Home = () => {
                     </div>
                   </div>
                   
-                  {/* Notice Marquee Box */}
-                  {urgentNotices.length > 0 && (
-                    <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-large z-30 border-2 border-red-500/30 overflow-hidden">
-                      <div className="px-3 py-2 overflow-hidden">
-                        <div className="flex animate-marquee whitespace-nowrap">
-                          {urgentNotices.map((notice, index) => (
-                            <span key={notice._id || index} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
-                              {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
-                              {notice.title}: {notice.description}
-                            </span>
-                          ))}
-                          {/* Duplicate for seamless loop */}
-                          {urgentNotices.map((notice, index) => (
-                            <span key={`duplicate-${notice._id || index}`} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
-                              {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
-                              {notice.title}: {notice.description}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
                   {/* Decorative Badges */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
                     <p className="text-sm font-semibold text-primary-600">D.M. Public School</p>
                     <p className="text-xs text-secondary-600">Garahi, Desari, Vaishali</p>
                   </div>
-                  <div className={`absolute ${urgentNotices.length > 0 ? 'bottom-24 sm:bottom-28' : 'bottom-4'} right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20`}>
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
                     <p className="text-sm font-semibold text-primary-600">Affiliated to Bihar Govt</p>
                     <p className="text-xs text-secondary-600">Run by Nandlala Samajik Shikshan Sansthan</p>
                   </div>
