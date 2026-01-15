@@ -116,7 +116,7 @@ const NoticeBoard = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 text-white relative overflow-hidden">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 dark:from-primary-700 dark:via-primary-800 dark:to-primary-900 text-white relative overflow-hidden">
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -146,7 +146,7 @@ const NoticeBoard = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-gradient-to-b from-white to-secondary-50 border-b border-secondary-200">
+      <section className="py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -184,7 +184,7 @@ const NoticeBoard = () => {
       </section>
 
       {/* Notices */}
-      <section className="section-padding bg-gradient-to-b from-secondary-50 to-white">
+      <section className="section-padding bg-gradient-to-b from-secondary-50 dark:from-gray-900 to-white dark:to-gray-800">
         <div className="container-custom">
           {loading ? (
             <div className="text-center py-12">
@@ -200,7 +200,7 @@ const NoticeBoard = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05, duration: 0.5 }}
-                  className={`card border-l-4 ${
+                  className={`card border-l-4 w-full dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
                     notice.priority === 'Urgent'
                       ? 'border-red-500'
                       : notice.priority === 'High'
@@ -208,26 +208,26 @@ const NoticeBoard = () => {
                       : 'border-primary-500'
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-2xl font-bold text-secondary-900">{notice.title}</h3>
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
+                    <div className="flex-1 w-full min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+                        <h3 className="text-xl sm:text-2xl font-bold text-secondary-900 break-words">{notice.title}</h3>
                         {notice.isPinned && (
-                          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-semibold">
+                          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-semibold w-fit">
                             Pinned
                           </span>
                         )}
                       </div>
-                      <p className="text-secondary-700 mb-4 whitespace-pre-line leading-relaxed">
+                      <p className="text-secondary-700 mb-4 whitespace-pre-wrap break-words leading-relaxed text-sm sm:text-base">
                         {notice.description}
                       </p>
-                      <div className="flex flex-wrap items-center gap-4 text-sm">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                         <span className="flex items-center text-secondary-600">
-                          <FiCalendar className="mr-2 text-primary-500" size={16} />
+                          <FiCalendar className="mr-2 text-primary-500 flex-shrink-0" size={14} />
                           {new Date(notice.createdAt).toLocaleDateString()}
                         </span>
                         <span
-                          className={`px-3 py-1 rounded-lg font-medium ${
+                          className={`px-2 sm:px-3 py-1 rounded-lg font-medium text-xs sm:text-sm ${
                             notice.category === 'Urgent'
                               ? 'bg-red-100 text-red-800'
                               : notice.category === 'Exam'
@@ -240,7 +240,7 @@ const NoticeBoard = () => {
                           {notice.category}
                         </span>
                         <span
-                          className={`px-3 py-1 rounded-lg font-medium ${
+                          className={`px-2 sm:px-3 py-1 rounded-lg font-medium text-xs sm:text-sm ${
                             notice.priority === 'Urgent'
                               ? 'bg-red-100 text-red-800'
                               : notice.priority === 'High'
@@ -257,10 +257,10 @@ const NoticeBoard = () => {
                         href={notice.attachment.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 ml-4 px-4 py-2 rounded-lg hover:bg-primary-50 transition-colors"
+                        className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-50 transition-colors w-full sm:w-auto justify-center sm:justify-start flex-shrink-0"
                       >
-                        <FiFileText size={20} />
-                        <span className="text-sm font-medium">View Attachment</span>
+                        <FiFileText size={18} />
+                        <span className="text-xs sm:text-sm font-medium">View Attachment</span>
                       </a>
                     )}
                   </div>

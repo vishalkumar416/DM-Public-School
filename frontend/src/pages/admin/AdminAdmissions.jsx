@@ -7,7 +7,7 @@ import api from '../../utils/api';
 const AdminAdmissions = () => {
   const [admissions, setAdmissions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [statusFilter, setStatusFilter] = useState('pending');
+  const [statusFilter, setStatusFilter] = useState('');
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [approveModal, setApproveModal] = useState(false);

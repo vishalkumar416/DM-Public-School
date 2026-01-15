@@ -18,19 +18,57 @@ import {
   FiChevronDown,
   FiLock,
   FiSave,
+  FiSearch,
+  FiMoon,
+  FiSun,
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import useAuthStore from '../../store/authStore';
+import useThemeStore from '../../store/themeStore';
 import Notifications from '../Notifications';
 
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { admin, logout, checkAuth } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const handleSearch = (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    
+    const lowerQuery = query.toLowerCase();
+    const results = menuItems
+      .filter(item => 
+        item.label.toLowerCase().includes(lowerQuery) ||
+        item.path.toLowerCase().includes(lowerQuery)
+      )
+      .map(item => ({
+        label: item.label,
+        path: item.path
+      }));
+    
+    setSearchResults(results);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.search-container')) {
+        setShowSearchResults(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
   const [profileFormData, setProfileFormData] = useState({
     name: '',
@@ -210,9 +248,9 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="h-screen bg-gray-100 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-100 dark:bg-gray-900 flex flex-col overflow-hidden">
       {/* Top Header - Full Width */}
-      <header className="w-full bg-white border-b border-secondary-200 px-3 sm:px-4 lg:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm z-40 flex-shrink-0">
+      <header className="w-full bg-white dark:bg-gray-800 border-b border-secondary-200 dark:border-gray-700 px-3 sm:px-4 lg:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm z-40 flex-shrink-0">
         {/* Logo and School Name */}
         <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
           {/* Mobile Menu Toggle */}
@@ -236,6 +274,55 @@ const AdminLayout = () => {
             <p className="text-xs text-secondary-500 mt-0.5">Admin Panel</p>
           </div>
         </div>
+        
+        {/* Search Box */}
+        <div className="hidden md:flex flex-1 max-w-md mx-4 relative search-container">
+          <div className="relative w-full">
+            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-400" size={18} />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                handleSearch(e.target.value);
+              }}
+              onFocus={() => setShowSearchResults(true)}
+              className="w-full pl-10 pr-4 py-2 border border-secondary-200 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+            />
+            {showSearchResults && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 rounded-lg shadow-large z-50 max-h-96 overflow-y-auto">
+                {searchResults.map((result) => (
+                  <Link
+                    key={result.path}
+                    to={result.path}
+                    onClick={() => {
+                      setShowSearchResults(false);
+                      setSearchQuery('');
+                    }}
+                    className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <div className="font-medium text-secondary-900 dark:text-white">{result.label}</div>
+                    <div className="text-xs text-secondary-500 dark:text-gray-400">{result.path}</div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="mr-2 sm:mr-4 p-2 rounded-lg hover:bg-secondary-100 dark:hover:bg-gray-700 transition-colors"
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? (
+            <FiSun className="text-yellow-500" size={20} />
+          ) : (
+            <FiMoon className="text-secondary-600" size={20} />
+          )}
+        </button>
         
         {/* Notifications */}
         <div className="mr-2 sm:mr-4">
@@ -300,7 +387,7 @@ const AdminLayout = () => {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
         {/* Sidebar */}
         <aside
-          className={`fixed lg:relative top-16 lg:top-0 left-0 z-30 w-64 bg-white shadow-large lg:shadow-soft transform transition-transform duration-300 ease-in-out border-r border-secondary-200 flex-shrink-0 h-[calc(100vh-4rem)] lg:h-full ${
+          className={`fixed lg:relative top-16 lg:top-0 left-0 z-30 w-64 bg-white dark:bg-gray-800 shadow-large lg:shadow-soft transform transition-transform duration-300 ease-in-out border-r border-secondary-200 dark:border-gray-700 flex-shrink-0 h-[calc(100vh-4rem)] lg:h-full ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
           }`}
         >
@@ -362,7 +449,7 @@ const AdminLayout = () => {
       {showProfileSettings && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-4 max-h-[95vh] flex flex-col">
-            <div className="bg-white border-b border-gray-200 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 bg-white z-10 flex-shrink-0">
+            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-2xl px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-10 flex-shrink-0">
               <h2 className="text-lg sm:text-2xl font-bold">Profile Settings</h2>
               <button
                 onClick={() => setShowProfileSettings(false)}

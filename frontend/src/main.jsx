@@ -6,7 +6,16 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import App from './App.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
+import useThemeStore from './store/themeStore'
 import './index.css'
+
+// Initialize theme
+const storedTheme = localStorage.getItem('theme') || 'light';
+if (storedTheme === 'dark') {
+  document.documentElement.classList.add('dark');
+} else {
+  document.documentElement.classList.remove('dark');
+}
 
 console.log('Main.jsx: Starting React app...');
 console.log('Root element:', document.getElementById('root'));

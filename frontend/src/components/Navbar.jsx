@@ -14,8 +14,11 @@ import {
   FiBell,
   FiMail,
   FiLogIn,
-  FiSearch
+  FiSearch,
+  FiMoon,
+  FiSun
 } from 'react-icons/fi';
+import useThemeStore from '../store/themeStore';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,8 +26,18 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const { theme, toggleTheme } = useThemeStore();
   const location = useLocation();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Initialize theme on mount
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,8 +150,8 @@ const Navbar = () => {
         transition={{ duration: 0.3 }}
         className={`fixed top-8 sm:top-10 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-medium py-3'
-            : 'bg-white/80 backdrop-blur-sm py-4'
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-medium py-3'
+            : 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm py-4'
         }`}
       >
         <div className="w-full">
@@ -264,9 +277,22 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
 
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="ml-4 p-2.5 rounded-lg font-medium transition-all duration-200 bg-secondary-100 dark:bg-gray-700 text-secondary-700 dark:text-gray-200 hover:bg-secondary-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-md hover:shadow-lg"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <FiSun className="text-yellow-500" size={18} />
+              ) : (
+                <FiMoon className="text-secondary-600" size={18} />
+              )}
+            </button>
+            
             <Link
               to="/admin/login"
-              className="ml-4 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 bg-secondary-900 text-white hover:bg-secondary-800 flex items-center space-x-2 shadow-md hover:shadow-lg"
+              className="ml-4 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 bg-secondary-900 dark:bg-gray-700 text-white dark:text-gray-200 hover:bg-secondary-800 dark:hover:bg-gray-600 flex items-center space-x-2 shadow-md hover:shadow-lg"
             >
               <FiLogIn size={18} />
               <span>Admin</span>
