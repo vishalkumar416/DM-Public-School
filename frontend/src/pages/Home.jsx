@@ -251,9 +251,9 @@ const Home = () => {
                   </Link>
                 </div>
 
-                {/* Notice Marquee Box - Green Box with Red Text */}
+                {/* Notice Marquee Box - Red Text Only */}
                 {urgentNotices.length > 0 && (
-                  <div className="mt-6 border-2 border-green-500 rounded-lg p-3 overflow-hidden">
+                  <div className="mt-6 overflow-hidden">
                     <div className="overflow-hidden">
                       <div className="flex animate-marquee whitespace-nowrap">
                         {urgentNotices.map((notice, index) => (
