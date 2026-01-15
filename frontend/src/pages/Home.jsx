@@ -166,33 +166,37 @@ const Home = () => {
                   <div className="overflow-hidden">
                     <div className="flex animate-marquee">
                       {urgentNotices.map((notice, index) => (
-                        <div key={notice._id || index} className="flex items-center space-x-2 sm:space-x-3 mx-3 sm:mx-6 flex-shrink-0">
-                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={12} />}
-                          <span className="font-medium text-xs sm:text-sm whitespace-nowrap">
-                            {notice.title}
-                          </span>
+                        <div key={notice._id || index} className="flex items-center space-x-3 sm:space-x-4 mx-4 sm:mx-8 flex-shrink-0">
+                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
+                              {notice.title}:
+                            </span>
+                            <span className="font-medium text-xs sm:text-sm whitespace-nowrap text-white/90">
+                              {notice.description}
+                            </span>
+                          </div>
                           <span className="text-white/60 text-xs">•</span>
                         </div>
                       ))}
                       {/* Duplicate for seamless loop */}
                       {urgentNotices.map((notice, index) => (
-                        <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-2 sm:space-x-3 mx-3 sm:mx-6 flex-shrink-0">
-                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={12} />}
-                          <span className="font-medium text-xs sm:text-sm whitespace-nowrap">
-                            {notice.title}
-                          </span>
+                        <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-3 sm:space-x-4 mx-4 sm:mx-8 flex-shrink-0">
+                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
+                              {notice.title}:
+                            </span>
+                            <span className="font-medium text-xs sm:text-sm whitespace-nowrap text-white/90">
+                              {notice.description}
+                            </span>
+                          </div>
                           <span className="text-white/60 text-xs">•</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-                <Link
-                  to="/notices"
-                  className="flex-shrink-0 bg-white/25 hover:bg-white/35 backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs font-semibold transition-all whitespace-nowrap border border-white/30"
-                >
-                  View All
-                </Link>
               </div>
             ) : (
               <div className="flex items-center justify-center space-x-2 flex-1">
