@@ -12,7 +12,6 @@ import {
   FiStar,
   FiAlertCircle,
   FiPin,
-  FiMessageCircle,
   FiTruck,
   FiCalendar,
   FiMic,
