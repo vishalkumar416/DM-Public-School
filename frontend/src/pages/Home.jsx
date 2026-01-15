@@ -141,52 +141,66 @@ const Home = () => {
       </Helmet>
 
       {/* Important Notices Marquee */}
-      <section className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white py-3 sm:py-4 shadow-lg relative overflow-hidden z-50">
+      <section className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 dark:from-primary-800 dark:via-primary-700 dark:to-primary-800 text-white py-2.5 sm:py-3 shadow-md relative overflow-hidden z-50 border-b border-primary-700/20">
         <div className="container-custom">
-          {urgentNotices.length > 0 ? (
-            <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap sm:flex-nowrap">
-              <div className="flex items-center space-x-2 flex-shrink-0">
-                <FiAlertCircle className="text-yellow-300 animate-pulse flex-shrink-0" size={20} />
-                <span className="font-bold text-xs sm:text-base whitespace-nowrap">Important Notices:</span>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            {/* Slogan Section */}
+            <div className="hidden sm:flex items-center space-x-2 flex-shrink-0 border-r border-white/20 pr-4">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-sm">🎓</span>
               </div>
-              <div className="flex-1 overflow-hidden min-w-0">
-                <div className="overflow-hidden">
-                  <div className="flex animate-marquee">
-                    {urgentNotices.map((notice, index) => (
-                      <div key={notice._id || index} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
-                        {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
-                        <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
-                          {notice.title}
-                        </span>
-                        <span className="text-white/80 text-xs">•</span>
-                      </div>
-                    ))}
-                    {/* Duplicate for seamless loop */}
-                    {urgentNotices.map((notice, index) => (
-                      <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
-                        {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
-                        <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
-                          {notice.title}
-                        </span>
-                        <span className="text-white/80 text-xs">•</span>
-                      </div>
-                    ))}
+              <div className="text-xs font-medium leading-tight">
+                <div>Give education to the uneducated,</div>
+                <div>knowledge to the ignorant</div>
+              </div>
+            </div>
+            
+            {/* Notices Section */}
+            {urgentNotices.length > 0 ? (
+              <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0 w-full sm:w-auto">
+                <div className="flex items-center space-x-2 flex-shrink-0">
+                  <FiAlertCircle className="text-yellow-300 flex-shrink-0" size={18} />
+                  <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">Important:</span>
+                </div>
+                <div className="flex-1 overflow-hidden min-w-0">
+                  <div className="overflow-hidden">
+                    <div className="flex animate-marquee">
+                      {urgentNotices.map((notice, index) => (
+                        <div key={notice._id || index} className="flex items-center space-x-2 sm:space-x-3 mx-3 sm:mx-6 flex-shrink-0">
+                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={12} />}
+                          <span className="font-medium text-xs sm:text-sm whitespace-nowrap">
+                            {notice.title}
+                          </span>
+                          <span className="text-white/60 text-xs">•</span>
+                        </div>
+                      ))}
+                      {/* Duplicate for seamless loop */}
+                      {urgentNotices.map((notice, index) => (
+                        <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-2 sm:space-x-3 mx-3 sm:mx-6 flex-shrink-0">
+                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={12} />}
+                          <span className="font-medium text-xs sm:text-sm whitespace-nowrap">
+                            {notice.title}
+                          </span>
+                          <span className="text-white/60 text-xs">•</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
+                <Link
+                  to="/notices"
+                  className="flex-shrink-0 bg-white/25 hover:bg-white/35 backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs font-semibold transition-all whitespace-nowrap border border-white/30"
+                >
+                  View All
+                </Link>
               </div>
-              <Link
-                to="/notices"
-                className="flex-shrink-0 bg-white/20 hover:bg-white/30 px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap"
-              >
-                View All
-              </Link>
-            </div>
-          ) : (
-            <div className="flex items-center justify-center space-x-2">
-              <FiAlertCircle className="text-yellow-300 animate-pulse" size={18} />
-              <span className="text-sm sm:text-base font-medium">No urgent notices at the moment</span>
-            </div>
-          )}
+            ) : (
+              <div className="flex items-center justify-center space-x-2 flex-1">
+                <FiAlertCircle className="text-yellow-300" size={16} />
+                <span className="text-xs sm:text-sm font-medium">No urgent notices at the moment</span>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

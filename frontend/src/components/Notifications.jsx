@@ -140,13 +140,13 @@ const Notifications = () => {
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-white rounded-2xl shadow-2xl border border-secondary-200 z-50 max-h-[calc(100vh-8rem)] sm:max-h-[600px] flex flex-col">
-            <div className="sticky top-0 bg-white border-b border-secondary-200 px-4 py-3 flex justify-between items-center rounded-t-2xl z-10">
+          <div className="fixed sm:absolute right-0 top-0 sm:top-auto sm:mt-2 w-full sm:w-96 sm:max-w-sm h-full sm:h-auto sm:max-h-[600px] bg-white dark:bg-gray-800 rounded-none sm:rounded-2xl shadow-2xl border-0 sm:border border-secondary-200 dark:border-gray-700 z-50 flex flex-col">
+            <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-secondary-200 dark:border-gray-700 px-4 py-3 sm:py-3 flex justify-between items-center rounded-none sm:rounded-t-2xl z-10">
               <div className="flex items-center gap-2 min-w-0">
-                <h3 className="text-base sm:text-lg font-bold text-secondary-900 truncate">Notifications</h3>
+                <h3 className="text-base sm:text-lg font-bold text-secondary-900 dark:text-white truncate">Notifications</h3>
                 {unreadCount > 0 && (
                   <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full flex-shrink-0">
                     {unreadCount > 9 ? '9+' : unreadCount}
@@ -182,8 +182,8 @@ const Notifications = () => {
                   {notifications.map((notification) => (
                     <div
                       key={notification._id}
-                      className={`p-3 sm:p-4 hover:bg-secondary-50 transition-colors cursor-pointer ${
-                        !notification.isRead ? 'bg-primary-50/30' : ''
+                      className={`p-3 sm:p-4 hover:bg-secondary-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+                        !notification.isRead ? 'bg-primary-50/30 dark:bg-primary-900/20' : ''
                       }`}
                       onClick={() => handleNotificationClick(notification)}
                     >
@@ -194,7 +194,7 @@ const Notifications = () => {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2 mb-1">
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-secondary-900 text-sm sm:text-base leading-tight break-words">
+                              <h4 className="font-semibold text-secondary-900 dark:text-white text-sm sm:text-base leading-tight break-words">
                                 {notification.title}
                               </h4>
                             </div>
@@ -202,10 +202,10 @@ const Notifications = () => {
                               <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0 mt-1.5"></div>
                             )}
                           </div>
-                          <p className="text-xs sm:text-sm text-secondary-600 mt-1.5 line-clamp-2 break-words leading-relaxed">
+                          <p className="text-xs sm:text-sm text-secondary-600 dark:text-gray-300 mt-1.5 line-clamp-2 break-words leading-relaxed">
                             {notification.message}
                           </p>
-                          <p className="text-xs text-secondary-400 mt-2">
+                          <p className="text-xs text-secondary-400 dark:text-gray-500 mt-2">
                             {new Date(notification.createdAt).toLocaleString('en-US', {
                               month: 'short',
                               day: 'numeric',
@@ -214,7 +214,7 @@ const Notifications = () => {
                               hour12: true
                             })}
                           </p>
-                          <div className="flex items-center gap-3 sm:gap-4 mt-3 pt-2 border-t border-gray-100">
+                          <div className="flex items-center gap-3 sm:gap-4 mt-3 pt-2 border-t border-gray-100 dark:border-gray-700">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -243,8 +243,8 @@ const Notifications = () => {
                 </div>
               ) : (
                 <div className="p-12 text-center">
-                  <FiBell className="mx-auto text-gray-400 mb-3" size={32} />
-                  <p className="text-gray-500 text-sm">No notifications</p>
+                  <FiBell className="mx-auto text-gray-400 dark:text-gray-500 mb-3" size={32} />
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">No notifications</p>
                 </div>
               )}
             </div>

@@ -280,13 +280,13 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="ml-3 p-2.5 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:border-primary-300 dark:hover:border-gray-600 hover:text-primary-600 dark:hover:text-primary-400 flex items-center justify-center shadow-sm hover:shadow-md"
+              className="ml-3 p-2.5 rounded-lg transition-all duration-200 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-700 dark:to-gray-800 border border-primary-200 dark:border-gray-600 text-primary-600 dark:text-primary-400 hover:from-primary-100 hover:to-primary-200 dark:hover:from-gray-600 dark:hover:to-gray-700 hover:border-primary-300 dark:hover:border-primary-500 flex items-center justify-center shadow-sm hover:shadow-md"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
-                <FiSun className="text-yellow-500 dark:text-yellow-400" size={18} />
+                <FiSun className="text-amber-500" size={18} />
               ) : (
-                <FiMoon className="text-secondary-600 dark:text-gray-400" size={18} />
+                <FiMoon className="text-primary-600" size={18} />
               )}
             </button>
             
@@ -468,16 +468,16 @@ const Navbar = () => {
                   {/* Theme Toggle - Mobile */}
                   <button
                     onClick={toggleTheme}
-                    className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-lg font-medium transition-colors bg-white dark:bg-gray-800 border border-secondary-200 dark:border-gray-700 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 mt-2"
+                    className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-lg font-medium transition-all bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-700 dark:to-gray-800 border border-primary-200 dark:border-gray-600 text-primary-600 dark:text-primary-400 hover:from-primary-100 hover:to-primary-200 dark:hover:from-gray-600 dark:hover:to-gray-700 mt-2"
                   >
                     {theme === 'dark' ? (
                       <>
-                        <FiSun className="text-yellow-500" size={18} />
+                        <FiSun className="text-amber-500" size={18} />
                         <span>Light Mode</span>
                       </>
                     ) : (
                       <>
-                        <FiMoon className="text-secondary-600" size={18} />
+                        <FiMoon className="text-primary-600" size={18} />
                         <span>Dark Mode</span>
                       </>
                     )}
