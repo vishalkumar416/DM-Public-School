@@ -42,8 +42,9 @@ const app = express();
 ================================ */
 
 // Trust proxy - required when behind a reverse proxy (Render, Vercel, etc.)
-// Set to true to trust all proxies, or 1 to trust first proxy
-app.set('trust proxy', true);
+// Set to 1 to trust first proxy only (secure for rate limiting)
+// Render uses one proxy, so we trust only the first one
+app.set('trust proxy', 1);
 
 /* ==============================
    SECURITY MIDDLEWARE
@@ -109,10 +110,8 @@ const limiter = rateLimit({
   max: process.env.NODE_ENV === 'production' ? 100 : 1000,
   standardHeaders: true,
   legacyHeaders: false,
-  // Validate proxy configuration - trust proxy is already set above
-  validate: {
-    trustProxy: true,
-  },
+  // Trust proxy is set to 1 above (trust first proxy only)
+  // This is secure for rate limiting as it doesn't allow bypassing
   skip: (req) => {
     const skipAuth =
       req.originalUrl.includes('/auth/login') ||
