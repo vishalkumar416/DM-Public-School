@@ -116,7 +116,7 @@ const NoticeBoard = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-20 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 text-white relative overflow-hidden">
+      <section className="pt-24 sm:pt-28 md:pt-36 pb-8 sm:pb-12 md:pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 dark:from-primary-700 dark:via-primary-800 dark:to-primary-900 text-white relative overflow-hidden">
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -125,7 +125,7 @@ const NoticeBoard = () => {
           }}></div>
         </div>
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-red-700/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary-600/20"></div>
         
         <div className="w-full px-3 sm:px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -146,7 +146,7 @@ const NoticeBoard = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-3 sm:py-4 md:py-6 lg:py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700 sticky top-0 z-40 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+      <section className="py-3 sm:py-4 md:py-6 lg:py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700 sticky top-16 sm:top-20 z-40 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
         <div className="w-full px-2 sm:px-3 md:px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -170,8 +170,8 @@ const NoticeBoard = () => {
                     onClick={() => setCategory(cat === 'All' ? '' : cat)}
                     className={`px-2.5 sm:px-3 md:px-4 lg:px-6 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 ${
                       isActive
-                        ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-medium scale-105'
-                        : 'bg-white dark:bg-gray-800 text-secondary-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 dark:hover:text-orange-400 shadow-soft border border-secondary-200 dark:border-gray-700 hover:border-orange-300'
+                        ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
+                        : 'bg-white dark:bg-gray-800 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:text-primary-600 dark:hover:text-primary-400 shadow-soft border border-secondary-200 dark:border-gray-700 hover:border-primary-300'
                     }`}
                   >
                     {cat}
@@ -188,7 +188,7 @@ const NoticeBoard = () => {
         <div className="w-full px-2 sm:px-3 md:px-4 lg:px-8 max-w-7xl mx-auto">
           {loading ? (
             <div className="text-center py-12">
-              <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               <p className="mt-4 text-secondary-600 dark:text-gray-400">Loading notices...</p>
             </div>
           ) : notices.length > 0 ? (
@@ -204,8 +204,8 @@ const NoticeBoard = () => {
                     notice.priority === 'Urgent'
                       ? 'border-red-500'
                       : notice.priority === 'High'
-                      ? 'border-orange-500'
-                      : 'border-orange-500'
+                      ? 'border-primary-500'
+                      : 'border-primary-500'
                   }`}
                 >
                   <div className="flex flex-col gap-3 sm:gap-4">
@@ -223,7 +223,7 @@ const NoticeBoard = () => {
                       </p>
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                         <span className="flex items-center text-secondary-600 dark:text-gray-400">
-                          <FiCalendar className="mr-1.5 sm:mr-2 text-orange-500 dark:text-orange-400 flex-shrink-0" size={14} />
+                          <FiCalendar className="mr-1.5 sm:mr-2 text-primary-500 dark:text-primary-400 flex-shrink-0" size={14} />
                           {new Date(notice.createdAt).toLocaleDateString()}
                         </span>
                         <span
@@ -234,7 +234,7 @@ const NoticeBoard = () => {
                               ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
                               : notice.category === 'Holiday'
                               ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                              : 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300'
+                              : 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300'
                           }`}
                         >
                           {notice.category}
@@ -244,7 +244,7 @@ const NoticeBoard = () => {
                             notice.priority === 'Urgent'
                               ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                               : notice.priority === 'High'
-                              ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300'
+                              ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300'
                               : 'bg-secondary-100 dark:bg-gray-700 text-secondary-800 dark:text-gray-300'
                           }`}
                         >
@@ -257,7 +257,7 @@ const NoticeBoard = () => {
                         href={notice.attachment.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center sm:justify-start space-x-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 px-3 sm:px-4 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors w-full sm:w-auto flex-shrink-0 border border-orange-200 dark:border-orange-800"
+                        className="flex items-center justify-center sm:justify-start space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors w-full sm:w-auto flex-shrink-0 border border-primary-200 dark:border-primary-800"
                       >
                         <FiFileText size={18} />
                         <span className="text-xs sm:text-sm font-medium">View Attachment</span>

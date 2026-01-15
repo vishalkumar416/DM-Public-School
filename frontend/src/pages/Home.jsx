@@ -27,14 +27,68 @@ const Home = () => {
     fetchUrgentNotices();
   }, []);
 
+  // Extract dates from notice description (DD/MM/YYYY, DD-MM-YYYY, DD.MM.YYYY formats)
+  const extractDatesFromDescription = (description) => {
+    if (!description) return [];
+    const datePatterns = [
+      /(\d{1,2})\/(\d{1,2})\/(\d{4})/g,  // DD/MM/YYYY
+      /(\d{1,2})-(\d{1,2})-(\d{4})/g,    // DD-MM-YYYY
+      /(\d{1,2})\.(\d{1,2})\.(\d{4})/g,  // DD.MM.YYYY
+    ];
+    const dates = [];
+    
+    datePatterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(description)) !== null) {
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10) - 1; // Month is 0-indexed
+        const year = parseInt(match[3], 10);
+        const date = new Date(year, month, day);
+        if (!isNaN(date.getTime())) {
+          dates.push(date);
+        }
+      }
+    });
+    
+    return dates;
+  };
+
   const fetchUrgentNotices = async () => {
     try {
-      const response = await api.get('/notices?isActive=true&limit=10');
+      const response = await api.get('/notices?isActive=true&limit=20');
       const notices = response.data.notices || [];
-      // Filter for urgent or pinned notices
-      const urgent = notices.filter(
-        (notice) => notice.isPinned || notice.priority === 'Urgent' || notice.category === 'Urgent'
-      );
+      const now = new Date();
+      const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      
+      // Filter for urgent or pinned notices with date filtering
+      const urgent = notices.filter((notice) => {
+        // Must be urgent or pinned
+        if (!(notice.isPinned || notice.priority === 'Urgent' || notice.category === 'Urgent')) {
+          return false;
+        }
+        
+        // Check if notice is within 1 week from creation date
+        const createdAt = new Date(notice.createdAt);
+        if (createdAt < oneWeekAgo) {
+          return false;
+        }
+        
+        // Check if notice has dates mentioned in description
+        const mentionedDates = extractDatesFromDescription(notice.description);
+        if (mentionedDates.length > 0) {
+          // Check if any mentioned date is still valid (not expired after 1 month)
+          const hasValidDate = mentionedDates.some(date => {
+            const oneMonthAfterDate = new Date(date.getTime() + 30 * 24 * 60 * 60 * 1000);
+            // Notice should show if the mentioned date hasn't passed 1 month yet
+            return oneMonthAfterDate >= now;
+          });
+          return hasValidDate;
+        }
+        
+        // If no dates mentioned, show if within 1 week from creation
+        return true;
+      });
+      
       setUrgentNotices(urgent.slice(0, 5)); // Limit to 5 notices
     } catch (error) {
       console.error('Error fetching urgent notices:', error);
@@ -140,74 +194,6 @@ const Home = () => {
         />
       </Helmet>
 
-      {/* Important Notices Marquee */}
-      <section className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 text-white py-2.5 sm:py-3 shadow-md relative overflow-hidden z-50 border-b border-orange-700/30">
-        <div className="container-custom">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            {/* Slogan Section */}
-            <div className="hidden sm:flex items-center space-x-2 flex-shrink-0 border-r border-white/20 pr-4">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-sm">🎓</span>
-              </div>
-              <div className="text-xs font-medium leading-tight">
-                <div>Give education to the uneducated,</div>
-                <div>knowledge to the ignorant</div>
-              </div>
-            </div>
-            
-            {/* Notices Section */}
-            {urgentNotices.length > 0 ? (
-              <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0 w-full sm:w-auto">
-                <div className="flex items-center space-x-2 flex-shrink-0">
-                  <FiAlertCircle className="text-yellow-300 flex-shrink-0" size={18} />
-                  <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">Important:</span>
-                </div>
-                <div className="flex-1 overflow-hidden min-w-0">
-                  <div className="overflow-hidden">
-                    <div className="flex animate-marquee">
-                      {urgentNotices.map((notice, index) => (
-                        <div key={notice._id || index} className="flex items-center space-x-3 sm:space-x-4 mx-4 sm:mx-8 flex-shrink-0">
-                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
-                              {notice.title}:
-                            </span>
-                            <span className="font-medium text-xs sm:text-sm whitespace-nowrap text-white/90">
-                              {notice.description}
-                            </span>
-                          </div>
-                          <span className="text-white/60 text-xs">•</span>
-                        </div>
-                      ))}
-                      {/* Duplicate for seamless loop */}
-                      {urgentNotices.map((notice, index) => (
-                        <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-3 sm:space-x-4 mx-4 sm:mx-8 flex-shrink-0">
-                          {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
-                              {notice.title}:
-                            </span>
-                            <span className="font-medium text-xs sm:text-sm whitespace-nowrap text-white/90">
-                              {notice.description}
-                            </span>
-                          </div>
-                          <span className="text-white/60 text-xs">•</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center space-x-2 flex-1">
-                <FiAlertCircle className="text-yellow-300" size={16} />
-                <span className="text-xs sm:text-sm font-medium">No urgent notices at the moment</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 pt-8 sm:pt-10">
         {/* Animated Background Elements */}
@@ -291,12 +277,35 @@ const Home = () => {
                     </div>
                   </div>
                   
+                  {/* Notice Marquee Box */}
+                  {urgentNotices.length > 0 && (
+                    <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-large z-30 border-2 border-red-500/30 overflow-hidden">
+                      <div className="px-3 py-2 overflow-hidden">
+                        <div className="flex animate-marquee whitespace-nowrap">
+                          {urgentNotices.map((notice, index) => (
+                            <span key={notice._id || index} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
+                              {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
+                              {notice.title}: {notice.description}
+                            </span>
+                          ))}
+                          {/* Duplicate for seamless loop */}
+                          {urgentNotices.map((notice, index) => (
+                            <span key={`duplicate-${notice._id || index}`} className="inline-block px-4 text-red-600 font-semibold text-sm sm:text-base">
+                              {notice.isPinned && <FiBookmark className="inline mr-1" size={12} />}
+                              {notice.title}: {notice.description}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* Decorative Badges */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
                     <p className="text-sm font-semibold text-primary-600">D.M. Public School</p>
                     <p className="text-xs text-secondary-600">Garahi, Desari, Vaishali</p>
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20">
+                  <div className={`absolute ${urgentNotices.length > 0 ? 'bottom-24 sm:bottom-28' : 'bottom-4'} right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-medium z-20`}>
                     <p className="text-sm font-semibold text-primary-600">Affiliated to Bihar Govt</p>
                     <p className="text-xs text-secondary-600">Run by Nandlala Samajik Shikshan Sansthan</p>
                   </div>
