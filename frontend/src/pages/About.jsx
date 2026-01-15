@@ -113,7 +113,7 @@ const About = () => {
                   <p className="text-xl text-secondary-800 leading-relaxed font-medium">
                     D.M. Public School, established in <span className="text-primary-600 font-bold">2020</span>, is a premier educational institution located in{' '}
                     <span className="text-primary-600 font-semibold">Garahi, Desari, Vaishali, Bihar</span>. Our school is affiliated with{' '}
-                    <span className="text-primary-600 font-semibold">Bihar Government</span> and follows the{' '}
+                    <span className="text-primary-600 font-semibold">Bihar Government</span>, run by <span className="text-primary-600 font-semibold">Nandlala Samajik Shikshan Sansthan</span>, and follows the{' '}
                     <span className="text-primary-600 font-semibold">NCERT curriculum</span>, ensuring that our students receive a comprehensive and nationally recognized education.
                   </p>
                   
@@ -148,8 +148,8 @@ const About = () => {
               {[
                 {
                   icon: FiAward,
-                  title: 'Bihar Government Affiliated',
-                  description: 'Following NCERT curriculum',
+                  title: 'Affiliated to Bihar Govt',
+                  description: 'Run by Nandlala Samajik Shikshan Sansthan - NCERT curriculum',
                   gradient: 'from-blue-400 to-blue-500',
                 },
                 {

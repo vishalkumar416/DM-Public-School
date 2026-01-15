@@ -62,7 +62,7 @@ const Academics = () => {
                 Academics
               </h1>
               <p className="text-xl md:text-2xl text-white/90 font-light">
-                NCERT Curriculum from Nursery to Class X (Bihar Government Affiliated)
+                NCERT Curriculum from Nursery to Class X (Affiliated to Bihar Govt - Run by Nandlala Samajik Shikshan Sansthan)
               </p>
             </motion.div>
           </div>
@@ -132,7 +132,7 @@ const Academics = () => {
                 NCERT <span className="gradient-text">Curriculum</span>
               </h2>
               <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-                D.M. Public School is affiliated with Bihar Government and follows the NCERT curriculum guidelines
+                D.M. Public School is affiliated to Bihar Government, run by Nandlala Samajik Shikshan Sansthan, and follows the NCERT curriculum guidelines
               </p>
             </motion.div>
 

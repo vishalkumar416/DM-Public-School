@@ -116,7 +116,7 @@ const NoticeBoard = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 dark:from-primary-700 dark:via-primary-800 dark:to-primary-900 text-white relative overflow-hidden">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 bg-gradient-to-br from-primary-300 via-primary-400 to-primary-500 dark:from-primary-700 dark:via-primary-800 dark:to-primary-900 text-white relative overflow-hidden">
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -134,10 +134,10 @@ const NoticeBoard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight px-2">
                 Notice Board
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 font-light">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-light px-2">
                 Stay Updated with Latest Announcements
               </p>
             </motion.div>
@@ -146,15 +146,15 @@ const NoticeBoard = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
+      <section className="py-4 sm:py-6 lg:py-8 bg-gradient-to-b from-white dark:from-gray-800 to-secondary-50 dark:to-gray-900 border-b border-secondary-200 dark:border-gray-700 sticky top-0 z-40 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+        <div className="w-full px-3 sm:px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex flex-wrap justify-center items-center gap-3"
+              className="flex flex-wrap justify-center items-center gap-2 sm:gap-3"
             >
               {categories.map((cat, index) => {
                 const isActive = (cat === 'All' && !category) || category === cat;
@@ -168,10 +168,10 @@ const NoticeBoard = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setCategory(cat === 'All' ? '' : cat)}
-                    className={`px-6 py-3 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 ${
+                    className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 ${
                       isActive
                         ? 'bg-gradient-to-r from-primary-400 to-primary-500 text-white shadow-medium scale-105'
-                        : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-soft border border-secondary-200 hover:border-primary-300'
+                        : 'bg-white dark:bg-gray-800 text-secondary-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:text-primary-600 shadow-soft border border-secondary-200 dark:border-gray-700 hover:border-primary-300'
                     }`}
                   >
                     {cat}
@@ -184,15 +184,15 @@ const NoticeBoard = () => {
       </section>
 
       {/* Notices */}
-      <section className="section-padding bg-gradient-to-b from-secondary-50 dark:from-gray-900 to-white dark:to-gray-800">
-        <div className="container-custom">
+      <section className="py-4 sm:py-6 lg:py-8 bg-gradient-to-b from-secondary-50 dark:from-gray-900 to-white dark:to-gray-800 min-h-screen">
+        <div className="w-full px-3 sm:px-4 lg:px-8 max-w-7xl mx-auto">
           {loading ? (
             <div className="text-center py-12">
               <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-              <p className="mt-4 text-secondary-600">Loading notices...</p>
+              <p className="mt-4 text-secondary-600 dark:text-gray-400">Loading notices...</p>
             </div>
           ) : notices.length > 0 ? (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {notices.map((notice, index) => (
                 <motion.div
                   key={notice._id}
@@ -200,7 +200,7 @@ const NoticeBoard = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05, duration: 0.5 }}
-                  className={`card border-l-4 w-full dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                  className={`w-full bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg p-4 sm:p-6 border-l-4 dark:border-gray-700 ${
                     notice.priority === 'Urgent'
                       ? 'border-red-500'
                       : notice.priority === 'High'
@@ -208,33 +208,33 @@ const NoticeBoard = () => {
                       : 'border-primary-500'
                   }`}
                 >
-                  <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
+                  <div className="flex flex-col gap-3 sm:gap-4">
                     <div className="flex-1 w-full min-w-0">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
-                        <h3 className="text-xl sm:text-2xl font-bold text-secondary-900 break-words">{notice.title}</h3>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-secondary-900 dark:text-white break-words leading-tight">{notice.title}</h3>
                         {notice.isPinned && (
-                          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-semibold w-fit">
+                          <span className="px-2 sm:px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-lg text-xs font-semibold w-fit">
                             Pinned
                           </span>
                         )}
                       </div>
-                      <p className="text-secondary-700 mb-4 whitespace-pre-wrap break-words leading-relaxed text-sm sm:text-base">
+                      <p className="text-sm sm:text-base text-secondary-700 dark:text-gray-300 mb-4 whitespace-pre-wrap break-words leading-relaxed">
                         {notice.description}
                       </p>
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
-                        <span className="flex items-center text-secondary-600">
-                          <FiCalendar className="mr-2 text-primary-500 flex-shrink-0" size={14} />
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+                        <span className="flex items-center text-secondary-600 dark:text-gray-400">
+                          <FiCalendar className="mr-1.5 sm:mr-2 text-primary-500 dark:text-primary-400 flex-shrink-0" size={14} />
                           {new Date(notice.createdAt).toLocaleDateString()}
                         </span>
                         <span
                           className={`px-2 sm:px-3 py-1 rounded-lg font-medium text-xs sm:text-sm ${
                             notice.category === 'Urgent'
-                              ? 'bg-red-100 text-red-800'
+                              ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                               : notice.category === 'Exam'
-                              ? 'bg-purple-100 text-purple-800'
+                              ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
                               : notice.category === 'Holiday'
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-primary-100 text-primary-800'
+                              ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                              : 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300'
                           }`}
                         >
                           {notice.category}
@@ -242,10 +242,10 @@ const NoticeBoard = () => {
                         <span
                           className={`px-2 sm:px-3 py-1 rounded-lg font-medium text-xs sm:text-sm ${
                             notice.priority === 'Urgent'
-                              ? 'bg-red-100 text-red-800'
+                              ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                               : notice.priority === 'High'
-                              ? 'bg-orange-100 text-orange-800'
-                              : 'bg-secondary-100 text-secondary-800'
+                              ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300'
+                              : 'bg-secondary-100 dark:bg-gray-700 text-secondary-800 dark:text-gray-300'
                           }`}
                         >
                           {notice.priority}
@@ -257,7 +257,7 @@ const NoticeBoard = () => {
                         href={notice.attachment.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-50 transition-colors w-full sm:w-auto justify-center sm:justify-start flex-shrink-0"
+                        className="flex items-center justify-center sm:justify-start space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 px-3 sm:px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors w-full sm:w-auto flex-shrink-0 border border-primary-200 dark:border-primary-800"
                       >
                         <FiFileText size={18} />
                         <span className="text-xs sm:text-sm font-medium">View Attachment</span>
@@ -268,9 +268,9 @@ const NoticeBoard = () => {
               ))}
             </div>
           ) : (
-            <div className="card text-center py-12">
-              <FiAlertCircle className="mx-auto text-secondary-400 mb-4" size={48} />
-              <p className="text-secondary-600 text-lg">No notices available at the moment.</p>
+            <div className="w-full bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
+              <FiAlertCircle className="mx-auto text-secondary-400 dark:text-gray-500 mb-4" size={48} />
+              <p className="text-secondary-600 dark:text-gray-400 text-base sm:text-lg">No notices available at the moment.</p>
             </div>
           )}
         </div>

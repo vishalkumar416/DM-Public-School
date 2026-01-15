@@ -136,7 +136,7 @@ const Home = () => {
         <title>Home - D.M. Public School | Excellence in Education</title>
         <meta
           name="description"
-          content="D.M. Public School - A premier Bihar Government affiliated institution in Garahi, Desari, Vaishali, Bihar. Quality education from Nursery to Class X following NCERT curriculum."
+          content="D.M. Public School - Affiliated to Bihar Govt, run by Nandlala Samajik Shikshan Sansthan. Quality education from Nursery to Class X following NCERT curriculum in Garahi, Desari, Vaishali, Bihar."
         />
       </Helmet>
 
