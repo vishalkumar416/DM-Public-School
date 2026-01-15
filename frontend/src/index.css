@@ -20,6 +20,14 @@
   width: 200%;
 }
 
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.pause-animation {
+  animation-play-state: paused;
+}
+
 * {
   margin: 0;
   padding: 0;

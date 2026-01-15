@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import {
   FiAward,
   FiUsers,
@@ -9,33 +10,87 @@ import {
   FiTrendingUp,
   FiCheckCircle,
   FiStar,
+  FiAlertCircle,
+  FiPin,
+  FiMessageCircle,
+  FiTruck,
+  FiCalendar,
+  FiMic,
+  FiShield,
+  FiBook,
 } from 'react-icons/fi';
+import api from '../utils/api';
 
 const Home = () => {
+  const [urgentNotices, setUrgentNotices] = useState([]);
+
+  useEffect(() => {
+    fetchUrgentNotices();
+  }, []);
+
+  const fetchUrgentNotices = async () => {
+    try {
+      const response = await api.get('/notices?isActive=true&limit=10');
+      const notices = response.data.notices || [];
+      // Filter for urgent or pinned notices
+      const urgent = notices.filter(
+        (notice) => notice.isPinned || notice.priority === 'Urgent' || notice.category === 'Urgent'
+      );
+      setUrgentNotices(urgent.slice(0, 5)); // Limit to 5 notices
+    } catch (error) {
+      console.error('Error fetching urgent notices:', error);
+      setUrgentNotices([]);
+    }
+  };
+
   const features = [
     {
-      icon: FiAward,
-      title: 'Bihar Government Affiliated',
-      description: 'Following NCERT curriculum ensuring quality education',
+      icon: FiUsers,
+      title: 'Development of Students with Quality Education',
+      description: 'Committed to nurturing young minds with excellence in education',
       color: 'from-blue-500 to-blue-600',
     },
     {
-      icon: FiUsers,
-      title: 'Expert Faculty',
-      description: 'Experienced and dedicated teachers committed to student success',
+      icon: FiAward,
+      title: 'Qualified, Dedicated and Inspiring Faculty',
+      description: 'Experienced and passionate teachers committed to student success',
       color: 'from-green-500 to-green-600',
     },
     {
-      icon: FiBookOpen,
-      title: 'Holistic Education',
-      description: 'Academic excellence combined with sports and extracurricular activities',
+      icon: FiTruck,
+      title: 'Transport Facility',
+      description: 'Safe and reliable transportation services for students',
       color: 'from-purple-500 to-purple-600',
     },
     {
-      icon: FiTarget,
-      title: 'Modern Infrastructure',
-      description: 'Well-equipped classrooms, labs, and facilities for optimal learning',
+      icon: FiCalendar,
+      title: 'Monthly Teacher-Parents Meeting',
+      description: 'Regular communication and collaboration between teachers and parents',
       color: 'from-orange-500 to-orange-600',
+    },
+    {
+      icon: FiMic,
+      title: 'Focus on English Speaking & Personality Development',
+      description: 'Enhancing communication skills and overall personality growth',
+      color: 'from-pink-500 to-pink-600',
+    },
+    {
+      icon: FiShield,
+      title: 'Education Based on Well Discipline and Moral Values',
+      description: 'Building character through discipline and ethical values',
+      color: 'from-indigo-500 to-indigo-600',
+    },
+    {
+      icon: FiBook,
+      title: 'Clean and Equipped Classrooms',
+      description: 'Modern, well-maintained learning spaces for optimal education',
+      color: 'from-teal-500 to-teal-600',
+    },
+    {
+      icon: FiBookOpen,
+      title: 'Library Facility',
+      description: 'Extensive collection of books and resources for learning',
+      color: 'from-cyan-500 to-cyan-600',
     },
   ];
 
@@ -85,6 +140,51 @@ const Home = () => {
           content="D.M. Public School - A premier Bihar Government affiliated institution in Garahi, Desari, Vaishali, Bihar. Quality education from Nursery to Class X following NCERT curriculum."
         />
       </Helmet>
+
+      {/* Important Notices Marquee */}
+      {urgentNotices.length > 0 && (
+        <section className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white py-3 shadow-lg relative overflow-hidden">
+          <div className="container-custom">
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <FiAlertCircle className="text-yellow-300 animate-pulse" size={20} />
+                <span className="font-bold text-xs sm:text-base whitespace-nowrap">Important Notices:</span>
+              </div>
+              <div className="flex-1 overflow-hidden min-w-0">
+                <div className="overflow-hidden">
+                  <div className="flex animate-marquee">
+                    {urgentNotices.map((notice, index) => (
+                      <div key={notice._id || index} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
+                        {notice.isPinned && <FiPin className="text-yellow-300 flex-shrink-0" size={14} />}
+                        <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
+                          {notice.title}
+                        </span>
+                        <span className="text-white/80 text-xs">•</span>
+                      </div>
+                    ))}
+                    {/* Duplicate for seamless loop */}
+                    {urgentNotices.map((notice, index) => (
+                      <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
+                        {notice.isPinned && <FiPin className="text-yellow-300 flex-shrink-0" size={14} />}
+                        <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
+                          {notice.title}
+                        </span>
+                        <span className="text-white/80 text-xs">•</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Link
+                to="/notices"
+                className="flex-shrink-0 bg-white/20 hover:bg-white/30 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap"
+              >
+                View All
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 pt-8 sm:pt-10">
@@ -362,9 +462,15 @@ const Home = () => {
                   </div>
                   <div className="pt-4 border-t border-white/20">
                     <div className="flex items-center space-x-1 text-yellow-300">
-                      {[...Array(5)].map((_, i) => (
+                      {[...Array(4)].map((_, i) => (
                         <FiStar key={i} size={20} fill="currentColor" />
                       ))}
+                      <div className="relative inline-block" style={{ width: '20px', height: '20px' }}>
+                        <FiStar size={20} className="absolute text-yellow-300/30" fill="currentColor" />
+                        <div className="absolute overflow-hidden" style={{ width: '10px', height: '20px' }}>
+                          <FiStar size={20} className="text-yellow-300" fill="currentColor" />
+                        </div>
+                      </div>
                     </div>
                     <p className="text-white/90 mt-2">Rated Excellent by Parents</p>
                   </div>
