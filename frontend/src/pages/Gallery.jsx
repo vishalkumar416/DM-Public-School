@@ -678,32 +678,6 @@ const Gallery = () => {
                 <p className="text-white/70">This album doesn't contain any images yet.</p>
               </div>
             )}
-              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-50 max-w-4xl w-full px-4">
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                  {selectedAlbum.images.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImageIndex(index);
-                        setIsZoomed(false);
-                      }}
-                      className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                        index === selectedImageIndex
-                          ? 'border-white scale-110 shadow-lg'
-                          : 'border-white/30 hover:border-white/60 opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img
-                        src={image.url || image}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

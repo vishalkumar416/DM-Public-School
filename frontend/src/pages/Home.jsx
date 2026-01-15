@@ -11,7 +11,7 @@ import {
   FiCheckCircle,
   FiStar,
   FiAlertCircle,
-  FiPin,
+  FiBookmark,
   FiTruck,
   FiCalendar,
   FiMic,
@@ -154,7 +154,7 @@ const Home = () => {
                   <div className="flex animate-marquee">
                     {urgentNotices.map((notice, index) => (
                       <div key={notice._id || index} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
-                        {notice.isPinned && <FiPin className="text-yellow-300 flex-shrink-0" size={14} />}
+                        {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
                         <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
                           {notice.title}
                         </span>
@@ -164,7 +164,7 @@ const Home = () => {
                     {/* Duplicate for seamless loop */}
                     {urgentNotices.map((notice, index) => (
                       <div key={`duplicate-${notice._id || index}`} className="flex items-center space-x-3 mx-4 sm:mx-8 flex-shrink-0">
-                        {notice.isPinned && <FiPin className="text-yellow-300 flex-shrink-0" size={14} />}
+                        {notice.isPinned && <FiBookmark className="text-yellow-300 flex-shrink-0" size={14} />}
                         <span className="font-semibold text-xs sm:text-base whitespace-nowrap">
                           {notice.title}
                         </span>
