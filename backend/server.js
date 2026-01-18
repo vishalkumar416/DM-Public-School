@@ -55,7 +55,7 @@ app.use(helmet());
 
 // ✅ FIXED CORS CONFIG (IMPORTANT)
 // Build allowed origins list
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['https://www.dmps.co.in','http://localhost:5173'];
 
 // Add frontend URL from environment variable if provided
 if (process.env.FRONTEND_URL) {
