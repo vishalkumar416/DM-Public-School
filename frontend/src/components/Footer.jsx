@@ -200,10 +200,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <FiMail className="text-primary-600 flex-shrink-0" size={18} />
                 <a
-                  href="mailto:aartikumari05032002@gmail.com"
+                  href="mailto:info@dmps.co.in"
                   className="text-secondary-700 hover:text-primary-600 transition-colors text-sm"
                 >
-                  aartikumari05032002@gmail.com
+                  info@dmps.co.in
                 </a>
               </div>
             </div>
