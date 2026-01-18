@@ -61,7 +61,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: FiFacebook, href: 'https://www.facebook.com/share/1Db2ywVGER/', label: 'Facebook' },
-    { icon: FiYouTube, href: 'https://www.youtube.com/@D.M9076', label: 'YouTube' },
+    { icon: FiYoutube, href: 'https://www.youtube.com/@D.M9076', label: 'YouTube' },
     { icon: FiInstagram, href: 'https://www.instagram.com/sauravkumar2518/?igsh=MXBzdGx2dGJkZWtsMQ%3D%3D#', label: 'Instagram' }
   ];
 
