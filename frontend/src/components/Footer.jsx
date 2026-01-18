@@ -5,9 +5,8 @@ import {
   FiPhone,
   FiMail,
   FiFacebook,
-  FiTwitter,
+  FiYoutube,
   FiInstagram,
-  FiLinkedin,
   FiArrowUp,
 } from 'react-icons/fi';
 
@@ -60,10 +59,11 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: FiFacebook, href: 'https://www.facebook.com/share/1Db2ywVGER/', label: 'Facebook' },
-    { icon: FiYoutube, href: 'https://www.youtube.com/@D.M9076', label: 'YouTube' },
-    { icon: FiInstagram, href: 'https://www.instagram.com/sauravkumar2518/?igsh=MXBzdGx2dGJkZWtsMQ%3D%3D#', label: 'Instagram' }
-  ];
+  { icon: FiFacebook, href: 'https://www.facebook.com/share/1Db2ywVGER/', label: 'Facebook' },
+  { icon: FiYoutube, href: 'https://www.youtube.com/@D.M9076', label: 'YouTube' },
+  { icon: FiInstagram, href: 'https://www.instagram.com/sauravkumar2518/', label: 'Instagram' }
+];
+
 
   return (
     <footer className="bg-gradient-to-br from-secondary-50 via-white to-secondary-100 text-secondary-900 relative overflow-hidden border-t border-secondary-200">
